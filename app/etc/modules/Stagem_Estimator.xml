@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Stagem Team
+ * @copyright Copyright (c) 2020 StageM (https://www.stagem.com.ua)
+ * @package Stagem_Estimator
+ */
+-->
+<config>
+    <modules>
+        <Stagem_Estimator>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Stagem_Estimator>
+    </modules>
+</config>
