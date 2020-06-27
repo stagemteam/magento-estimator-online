@@ -1,0 +1,184 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Stagem_Estimator>
+			<version>0.1.0</version>
+		</Stagem_Estimator>
+	</modules>
+
+	<global>
+
+		<blocks>
+			<stagem_estimator>
+				<class>Stagem_Estimator_Block</class>
+			</stagem_estimator>
+		</blocks>
+
+		<helpers>
+			<stagem_estimator>
+				<class>Stagem_Estimator_Helper</class>
+			</stagem_estimator>
+		</helpers>
+
+		<models>
+			<stagem_estimator>
+				<class>Stagem_Estimator_Model</class>
+				<resourceModel>stagem_estimator_resource</resourceModel>
+			</stagem_estimator>
+			<stagem_estimator_resource>
+				<class>Stagem_Estimator_Model_Resource</class>
+				<entities>
+					<rule>
+						<table>stagem_estimator_addons</table>
+					</rule>
+				</entities>
+			</stagem_estimator_resource>
+		</models>
+
+		<resources>
+			<stagem_estimator_setup>
+				<setup>
+					<module>Stagem_Estimator</module>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</stagem_estimator_setup>
+		</resources>
+	</global>
+
+	<frontend>
+		<routers>
+			<stagem_estimator>
+				<use>standard</use>
+				<args>
+					<module>Stagem_Estimator</module>
+					<frontName>estimator</frontName>
+				</args>
+			</stagem_estimator>
+		</routers>
+
+		<layout>
+			<updates>
+				<stagem_estimator>
+					<file>stagem/estimator.xml</file>
+				</stagem_estimator>
+			</updates>
+		</layout>
+
+		<translate>
+			<modules>
+				<Stagem_Estimator>
+					<files>
+						<default>Stagem_Estimator.csv</default>
+					</files>
+				</Stagem_Estimator>
+			</modules>
+		</translate>
+
+        <events>
+            <!-- this name is really important, use this to indicate the layout-render-before event -->
+            <!--<controller_action_layout_render_before_catalog_category_view>
+                <observers>
+                    <stagem_estimator_meta_tags_observer>
+                        <type>singleton</type>
+                        <class>Stagem_Estimator_Model_Observer</class>
+                        <method>hookToChangeMetaTags</method>
+                    </stagem_estimator_meta_tags_observer>
+                </observers>
+            </controller_action_layout_render_before_catalog_category_view>-->
+            <!--<controller_action_layout_render_before>
+                <observers>
+                    <stagem_estimator_meta_tags_observer>
+                        <type>singleton</type>
+                        <class>Stagem_Estimator_Model_Observer</class>
+                        <method>hookToChangeMetaTags</method>
+                    </stagem_estimator_meta_tags_observer>
+                </observers>
+            </controller_action_layout_render_before>
+            <controller_action_layout_render_before_catalog_product_view>
+                <observers>
+                    <stagem_estimator_meta_tags_observer>
+                        <type>singleton</type>
+                        <class>Stagem_Estimator_Model_Observer</class>
+                        <method>hookToChangeMetaTags</method>
+                    </stagem_estimator_meta_tags_observer>
+                </observers>
+            </controller_action_layout_render_before_catalog_product_view>-->
+            <controller_action_predispatch>
+                <observers>
+                    <stagem_estimator_predispatch_observer>
+                        <type>singleton</type>
+                        <class>Stagem_Estimator_Model_Observer</class>
+                        <method>controllerActionPredispatch</method>
+                    </stagem_estimator_predispatch_observer>
+                </observers>
+            </controller_action_predispatch>
+            <controller_action_layout_generate_blocks_after>
+                <observers>
+                    <stagem_estimator_generate_blocks_after_observer>
+                        <type>singleton</type>
+                        <class>Stagem_Estimator_Model_Observer</class>
+                        <method>hookAfterGenerateBlocks</method>
+                    </stagem_estimator_generate_blocks_after_observer>
+                </observers>
+            </controller_action_layout_generate_blocks_after>
+            <controller_action_layout_render_before_cms_index_index>
+                <observers>
+                    <stagem_estimator_cms_observer>
+                        <type>singleton</type>
+                        <class>Stagem_Estimator_Model_Observer</class>
+                        <method>hookTo8080Port</method>
+                    </stagem_estimator_cms_observer>
+                </observers>
+            </controller_action_layout_render_before_cms_index_index>
+            <catalog_helper_output_construct>
+                <observers>
+                    <m_seo_observer_attributes>
+                        <type>singleton</type>
+                        <class>stagem_estimator/observer</class>
+                        <method>hookCustomAttributeOutputHandler</method>
+                    </m_seo_observer_attributes>
+                </observers>
+            </catalog_helper_output_construct>
+            <!--<core_block_abstract_to_html_after>-->
+            <controller_front_send_response_before>
+                <observers>
+                    <stagem_estimator_block_abstract_to_html_after_observer>
+                        <type>singleton</type>
+                        <class>Stagem_Estimator_Model_Observer</class>
+                        <method>hookHtmlContent</method>
+                    </stagem_estimator_block_abstract_to_html_after_observer>
+                </observers>
+            </controller_front_send_response_before>
+        </events>
+	</frontend>
+
+	<!-- is important place this code (<adminhtml/>) in config.xml if you wand place this in adminhtml.xml nothing happen -->
+	<adminhtml>
+		<layout>
+			<updates>
+				<stagem_estimator>
+					<!--
+					We again keep a nice naming convention and make our module upgrade proof by placing it in a separate folder
+					- Since we are in the adminhtml node, this will look for the XML file in the app/design/adminhtml/default/default root folder
+					-->
+					<file>stagem/estimator.xml</file>
+				</stagem_estimator>
+			</updates>
+		</layout>
+	</adminhtml>
+
+	<admin>
+		<routers>
+			<adminhtml>
+				<args>
+					<modules>
+						<stagem_estimator before="Mage_Adminhtml">Stagem_Estimator_Adminhtml</stagem_estimator>
+					</modules>
+				</args>
+			</adminhtml>
+		</routers>
+	</admin>
+
+</config>

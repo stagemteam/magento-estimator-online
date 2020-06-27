@@ -10,7 +10,10 @@
   "extra": {
     "map": [
       ["app/etc/modules/Stagem_Estimator.xml", "app/etc/modules/Stagem_Estimator.xml"],
-      ["app/code/community/Stagem/Estimator/", "app/code/community/Stagem/Estimator/"]
+      ["app/code/community/Stagem/Estimator/", "app/code/community/Stagem/Estimator/"],
+      ["app/design/adminhtml/default/default/layout/stagem/estimator.xml", "app/design/adminhtml/default/default/layout/stagem/estimator.xml"],
+      ["app/design/frontend/base/default/layout/stagem/estimator.xml", "app/design/frontend/base/default/layout/stagem/estimator.xml"],
+      ["app/locale/fr_FR/Stagem_Estimator.csv", "app/locale/fr_FR/Stagem_Estimator.csv"],
     ]
   }
 }
