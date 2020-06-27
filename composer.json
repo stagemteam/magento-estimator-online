@@ -1,0 +1,16 @@
+{
+  "name": "stagem/magento-online-estimator",
+  "type": "magento-module",
+  "license":"MIT Licence",
+  "description":"Online Estimation for conditioner installation",
+  "authors":[{
+    "name":"Serhii Popov",
+    "email":"popow.serhii@gmail.com"
+  }],
+  "extra": {
+    "map": [
+      ["app/etc/modules/Stagem_Estimator.xml", "app/etc/modules/Stagem_Estimator.xml"],
+      ["app/code/community/Stagem/Estimator/", "app/code/community/Stagem/Estimator/"]
+    ]
+  }
+}
