@@ -28,9 +28,9 @@
 			<stagem_estimator_resource>
 				<class>Stagem_Estimator_Model_Resource</class>
 				<entities>
-					<rule>
-						<table>stagem_estimator_addons</table>
-					</rule>
+					<addon>
+                        <table>stagem_estimator_addon</table>/table>
+					</addon>
 				</entities>
 			</stagem_estimator_resource>
 		</models>
@@ -105,7 +105,9 @@
                     </stagem_estimator_meta_tags_observer>
                 </observers>
             </controller_action_layout_render_before_catalog_product_view>-->
-            <controller_action_predispatch>
+
+
+            <!--<controller_action_predispatch>
                 <observers>
                     <stagem_estimator_predispatch_observer>
                         <type>singleton</type>
@@ -141,7 +143,7 @@
                     </m_seo_observer_attributes>
                 </observers>
             </catalog_helper_output_construct>
-            <!--<core_block_abstract_to_html_after>-->
+            &lt;!&ndash;<core_block_abstract_to_html_after>&ndash;&gt;
             <controller_front_send_response_before>
                 <observers>
                     <stagem_estimator_block_abstract_to_html_after_observer>
@@ -150,7 +152,7 @@
                         <method>hookHtmlContent</method>
                     </stagem_estimator_block_abstract_to_html_after_observer>
                 </observers>
-            </controller_front_send_response_before>
+            </controller_front_send_response_before>-->
         </events>
 	</frontend>
 

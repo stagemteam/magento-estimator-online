@@ -8,7 +8,7 @@
 			<children>
 				<stagem_estimator_addons translate="title" module="stagem_estimator">
 					<title>Add-ons</title>
-					<action>adminhtml/addons/index</action>
+					<action>adminhtml/addon/index</action>
 					<sort_order>10</sort_order>
 				</stagem_estimator_addons>
 				<!--<stagem_estimator_block translate="title" module="stagem_estimator">
@@ -44,10 +44,10 @@
 					</system>
 
 					<stagem_estimator translate="title" module="stagem_estimator">
-						<title>Online Estimator</title>
+						<title>Estimator</title>
 						<children>
 							<stagem_estimator_addons translate="title" module="stagem_estimator">
-								<title>Addons</title>
+								<title>Add-ons</title>
 								<sort_order>10</sort_order>
 							</stagem_estimator_addons>
 						</children>
