@@ -13,5 +13,33 @@
  * @license https://opensource.org/licenses/MIT The MIT License (MIT)
  */
 ?>
+<?php
+/**
+ * @var $this Stagem_Estimator_Block_Estimator
+ */
+?>
+<div>
+	<ul>
+		<?php foreach ($this->getCategories() as $category) : ?>
+		<li data-id="<?= $category->getId() ?>"><?= $category->getName() ?></li>
+		<?php endforeach; ?>
+	</ul>
+</div>
 
-===============================
+<div>
+	<ul>
+	<?php foreach ($this->getCategories() as $category) : ?>
+		<?php // @TODO Try this one for performance https://stackoverflow.com/a/20898132/1335142 ?>
+		<?php foreach ($this->getProducts($category) as $configurable) : ?>
+			<li data-id="<?= $configurable->getId() ?>">
+				<?= $configurable->getName() ?>
+				<ul>
+					<?php foreach ($this->getSimpleProducts($configurable) as $simple) : ?>
+						<li data-id="<?= $simple->getId() ?>"><?= $simple->getName() ?></li>
+                    <?php endforeach; ?>
+				</ul>
+			</li>
+        <?php endforeach; ?>
+	<?php endforeach; ?>
+	</ul>
+</div>
