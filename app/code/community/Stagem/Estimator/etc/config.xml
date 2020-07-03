@@ -31,6 +31,9 @@
 					<addon>
                         <table>stagem_estimator_addon</table>/table>
 					</addon>
+					<estimation>
+                        <table>stagem_estimator_estimation</table>/table>
+					</estimation>
 				</entities>
 			</stagem_estimator_resource>
 		</models>
@@ -120,7 +123,7 @@
         <stagem_estimator>
             <general>
                 <enabled>0</enabled>
-                <recipient_email><![CDATA[hello@example.com]]></recipient_email>
+                <recipient_email><![CDATA[hello@localhost.com]]></recipient_email>
                 <sender_email_identity>general</sender_email_identity>
                 <email_template>stagem_estimator_form_general_email_template</email_template>
             </general>

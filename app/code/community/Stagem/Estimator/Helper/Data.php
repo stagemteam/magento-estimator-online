@@ -7,7 +7,7 @@
  */
 class Stagem_Estimator_Helper_Data extends Mage_Core_Helper_Abstract
 {
-    const SECTION_NAME = 'stagem_estimator';
+    const SYSTEM_SECTION_NAME = 'stagem_estimator';
 
     public function handleForm($data)
     {
@@ -17,12 +17,20 @@ class Stagem_Estimator_Helper_Data extends Mage_Core_Helper_Abstract
         /** @var Stagem_Estimator_Helper_Estimator $estimatorHelper */
         $estimatorHelper = Mage::helper('stagem_estimator/estimator');
 
-        $data['total_price'] = $estimatorHelper->getTotalPrice($data['product_id'], $data['addons']);
+        $estimation = $estimatorHelper->populateFormData($data);
 
+        //$data['total_price'] = $estimation->getTotalPrice();
 
-        //$data['subject'] = $this->getDefaultCategory($data['contact-id'])->getName();
+        $vars = [];
+        $vars['subject'] = 'Online Estimator evaluation';
+        $vars['estimation'] = $estimation;
+        $vars['phones'] = explode(',', Mage::getStoreConfig('general/store_information/phone'));
 
-        return $dataHelper->sendSimpleMail($data, Stagem_Estimator_Helper_Data::SECTION_NAME, $data['email']);
+        return $dataHelper->sendSimpleMail(
+            $vars,
+            Stagem_Estimator_Helper_Data::SYSTEM_SECTION_NAME,
+            $data['customer']['email']
+        );
     }
-    
+
 }

@@ -8,33 +8,47 @@
 class Stagem_Estimator_Helper_Estimator extends Mage_Core_Helper_Abstract
 {
     /**
-     * @param $product
-     * @param Stagem_Estimator_Model_Addon[]|array $addons
-     *
-     * @return bool
+     * Map DB field -> form field
+     * 
+     * @var array
      */
-    public function getTotalPrice($product, $dataAddons)
-    {
-        if (!is_object($product)) {
-            $product = Mage::getModel('catalog/product')->load($dataAddons['product_id']);
-        }
-        
-        // Check if $addons are simple array with IDs
-        //if (isset($addons[0]) && is_int($addons[0])) {
-             $addons = Mage::getModel('stagem_estimator/addon')->getCollection()
-                ->addFieldToFilter('is_active', 1)
-                ->addFieldToFilter('id', ['in' => array_keys($dataAddons)]);
-        //}
-        //$addons->load(true);
-        //echo $addons->getSelect();
-        //die(__METHOD__);
+    protected $fieldsMap = [
+        'category_id' => 'category',
+        'manufacturer_id' => 'manufacturer',
+        'configurable_id' => 'configurable',
+        'product_id' => 'product',
+        'addons' => 'addons',
+        'customer' => 'customer',
+        'photo' => 'filename',
+    ];
 
-        $total = $product->getPrice();
-        foreach ($addons as $addon) {
-            $total += $addon->calculate($dataAddons[$addon->getId()]);
+    /**
+     * @param $data
+     *
+     * @return Stagem_Estimator_Model_Estimation
+     */
+    public function populateFormData($data)
+    {
+        $estimation = Mage::getModel('stagem_estimator/estimation');
+        $estimation->setData('store_id', Mage::app()->getStore()->getId());
+        $estimation->setData('created_at', (new DateTime())->format('Y-m-d H:i:s'));
+        $estimation->setData('uniq', md5(uniqid(rand(), true))); // @link https://stackoverflow.com/a/1846229/1335142
+
+        $formFields = array_flip($this->fieldsMap);
+        foreach ($formFields as $formField => $dbField) {
+            if (isset($data[$formField])) {
+                $value = is_array($data[$formField])
+                    ? Mage::helper('core')->jsonEncode($data[$formField])
+                    : $data[$formField];
+
+                $estimation->setData($dbField, $value);
+            }
         }
-        
-        return $total;
+
+        $estimation->save();
+
+        return $estimation;
     }
-    
+
+
 }

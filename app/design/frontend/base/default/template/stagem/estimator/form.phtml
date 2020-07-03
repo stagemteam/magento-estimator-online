@@ -30,11 +30,11 @@
 	<ul>
 	<?php foreach ($this->getCategories() as $category) : ?>
 		<?php // @TODO Try this one for performance https://stackoverflow.com/a/20898132/1335142 ?>
-		<?php foreach ($this->getProducts($category) as $configurable) : ?>
+		<?php foreach ($this->getConfigurables($category) as $configurable) : ?>
 			<li data-id="<?= $configurable->getId() ?>">
 				<?= $configurable->getName() ?>
 				<ul>
-					<?php foreach ($this->getSimpleProducts($configurable) as $simple) : ?>
+					<?php foreach ($this->getProducts($configurable) as $simple) : ?>
 						<li data-id="<?= $simple->getId() ?>"><?= $simple->getName() ?></li>
                     <?php endforeach; ?>
 				</ul>

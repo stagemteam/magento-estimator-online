@@ -7,10 +7,13 @@
  */
 class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
 {
-    const TYPE_INPUT = 'input';
+    // @TODO Move it to config.xml and make dynamic
+    const TYPE_TEXT = 'text';
+    const TYPE_NUMBER = 'number';
     const TYPE_CHECKBOX = 'checkbox';
     const TYPE_RADIO = 'radio';
     const TYPE_SELECT = 'select';
+    const TYPE_TEXTAREA = 'textarea';
     const TYPE_INPUT_SELECT = 'input-select'; // @TODO
 
     protected function _construct()
@@ -18,18 +21,61 @@ class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
         $this->_init('stagem_estimator/addon');
     }
 
+    public function isSeparate()
+    {
+        return (bool) $this->getData('is_separate');
+    }
+
+    public function isMultiple()
+    {
+        $variations = explode("\n", $this->getPriceCondition());
+
+        // If we have more than one element in array, then it is multiple. There is no need count all elements.
+        return isset($variations[1]);
+    }
+
+    /**
+     * Prepare value for form element.
+     *
+     * It returns addon ID if there is no variations, otherwise array return.
+     *
+     * @return int|array
+     */
+    public function getValue()
+    {
+        $value = $this->getId();
+
+        if ($this->isMultiple()) {
+            $value = [];
+            $conditions = $this->parsePriceConditions();
+            foreach ($conditions as $index => $condition) {
+                $value[] = [
+                    'value' => $index,
+                    'label' => $condition['from_to']
+                        ? $condition['from_unit'] . ' - ' . $condition['from_to']
+                        : $condition['from_unit'],
+                ];
+            }
+        }
+
+        return $value;
+    }
+
     /**
      * @todo Implement Select and Input Select
      */
     public function calculate($input = null)
     {
-        $condition = $this->parsePriceCondition();
+        $conditions = $this->parsePriceConditions();
 
         $price = 0;
         if (in_array($this->getType(), [
-            Stagem_Estimator_Model_Addon::TYPE_INPUT,
+            Stagem_Estimator_Model_Addon::TYPE_TEXT,
+            Stagem_Estimator_Model_Addon::TYPE_NUMBER,
             Stagem_Estimator_Model_Addon::TYPE_INPUT_SELECT,
         ])) {
+            // Input element can have only one texted condition
+            $condition = array_shift($conditions);
             if (isset($condition['from'])) {
                 if ($this->getFree()) {
                     $input = $input - $this->getFree();
@@ -45,16 +91,28 @@ class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
                 $price = $input * $condition['price'];
             }
         } else {
+            $condition = $conditions[$input];
+
             $price = $condition['price'];
         }
 
         return $price;
     }
 
-    public function parsePriceCondition()
+    public function parsePriceConditions()
     {
-        $condition = $this->getPriceCondition();
+        $conditions = explode("\n", $this->getPriceCondition());
 
+        $parsed = [];
+        foreach ($conditions as $condition) {
+            $parsed[] = $this->parsePriceCondition($condition);
+        }
+
+        return $parsed;
+    }
+
+    public function parsePriceCondition($condition)
+    {
         $parsed = [];
         $mainParts = explode('|', $condition);
 
@@ -82,13 +140,13 @@ class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
             $left = explode(' ', trim($parts[0]));
             $right = explode(' ', trim($parts[1]));
 
-            $value['from'] = $left[0];
-            $value['from_unit'] = $left[1];
+            $value['from'] = trim($left[0]);
+            $value['from_unit'] = trim($left[1]);
 
-            $value['to'] = $right[0];
-            $value['to_unit'] = $right[1];
+            $value['to'] = trim($right[0]);
+            $value['to_unit'] = trim($right[1]);
         } else {
-            $value['name'] = $parts[0];
+            $value['from_unit'] = trim($parts[0]);
         }
 
         return $value;

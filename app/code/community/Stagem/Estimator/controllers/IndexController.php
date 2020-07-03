@@ -10,15 +10,15 @@ class Stagem_Estimator_IndexController extends Mage_Core_Controller_Front_Action
 
     public function createAction()
     {
-        $post = [
+        /*$post = [
             'category_id' => 3,
             'manufacturer_id' => 19,
             'product_id' => 52,
             'addons' => [1 => 15, 3 => true],
-            'email' => 'popov@localhost'
-        ];
+            'email' => 'resipient@localhost.com'
+        ];*/
 
-        if ($post || $post = $this->getRequest()->getPost()) {
+        if ($post = $this->getRequest()->getPost()) {
             Mage::getSingleton('core/session')->setPostDataCall($post);
 
             /** @var Agere_Form_Helper_Data $helperData */

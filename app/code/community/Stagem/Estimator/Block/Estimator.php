@@ -17,15 +17,67 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
 {
     protected $categories;
 
+    protected $data = [
+        'categories' => [],
+        'brands' => [],
+        'configurables' => [],
+        'products' => [],
+        'addons' => [],
+    ];
+
+    protected function _construct()
+    {
+        $this->getnerateData();
+        parent::_construct();
+    }
+
     protected function _toHtml()
     {
         //$this->setTemplate('followupemail/related.phtml');
         return $this->renderView();
     }
-
-    public function getItems()
+    
+    public function getFormUrl()
     {
-        return $this->_productCollection;
+        return Mage::getUrl('estimator/index/create');
+    }
+
+    public function getnerateData()
+    {
+        foreach ($this->getCategories() as $category) {
+            $this->data['categories'][] = [
+                'id' => $category->getId(),
+                'value' => $category->getId(),
+                'label' => $category->getName(),
+            ];
+
+            $brands = [];
+            foreach ($this->getConfigurables($category) as $configurable) {
+                $this->data['configurables'][] = [
+                    'id' => $configurable->getId(),
+                    'value' => $configurable->getId(),
+                    'brandId' => $configurable->getManufacturer(),
+                    'label' => $configurable->getName(),
+                ];
+
+                $this->data['brands'][$configurable->getManufacturer()] = [
+                    'id' => $configurable->getManufacturer(),
+                    'categoryId' => $category->getId(),
+                    'value' => $configurable->getManufacturer(),
+                    'label' => $configurable->getAttributeText('manufacturer'),
+                ];
+
+                foreach ($this->getProducts($configurable) as $simple) {
+                    $this->data['powers'][] = [
+                        'id' => $simple->getId(),
+                        'modelId' => $configurable->getId(),
+                        'value' => $simple->getId(),
+                        'label' => $simple->getName(),
+                    ];
+                }
+            }
+            $this->data['brands'] = array_values($this->data['brands']);
+        }
     }
 
     public function getCategories()
@@ -33,6 +85,7 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
         if ($this->categories) {
             return $this->categories;
         }
+
         // @TODO Move id to system configuration
         $id = '58';
         $category = Mage::getModel('catalog/category')->load($id);
@@ -56,7 +109,7 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
         }
     }
 
-    public function getProducts($category)
+    public function getConfigurables($category)
     {
         $productCollection = $category->getProductCollection();
         $productCollection
@@ -71,10 +124,64 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
         return $productCollection;
     }
 
-    public function getSimpleProducts($configurable)
+    public function getProducts($configurable)
     {
         $children = Mage::getModel('catalog/product_type_configurable')->getUsedProductCollection($configurable);
 
         return $children->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes());
+    }
+
+    public function categoriesToJson()
+    {
+        return Mage::helper('core')->jsonEncode($this->data['categories']);
+    }
+
+    public function manufacturersToJson()
+    {
+        return Mage::helper('core')->jsonEncode($this->data['brands']);
+    }
+
+    public function configurablesToJson()
+    {
+        return Mage::helper('core')->jsonEncode($this->data['configurables']);
+    }
+
+    public function powersToJson()
+    {
+        return Mage::helper('core')->jsonEncode($this->data['powers']);
+    }
+
+    public function addonsToJson()
+    {
+        $addons = Mage::getModel('stagem_estimator/addon')->getCollection()
+            ->addFieldToFilter('is_active', 1);
+
+        $data = [
+            'separated' => [],
+            'grouped' => [],
+        ];
+        /** @var Stagem_Estimator_Model_Addon $addon */
+        foreach ($addons as $addon) {
+            $element = [
+                'id' => $addon->getId(),
+                'order' => $addon->getPriority(),
+                'type' => $addon->getType(),
+                'value' => $addon->getValue(),
+                'label' => $addon->getName(),
+                'title' => $addon->getName(),
+                'order' => $addon->getPriority(),
+                'name' => 'addons[' . $addon->getId() . ']',
+                'isSeparate' => $addon->isSeparate(),
+                'isMultiple' => $addon->isMultiple(),
+                'infoMessage' => $addon->getInfoMessage(),
+                'placeholder' => $addon->getPlaceholder(),
+            ];
+
+            $addon->isSeparate()
+                ? array_push($data['separated'], $element)
+                : array_push($data['grouped'], $element);
+        }
+
+        return Mage::helper('core')->jsonEncode($data);
     }
 }

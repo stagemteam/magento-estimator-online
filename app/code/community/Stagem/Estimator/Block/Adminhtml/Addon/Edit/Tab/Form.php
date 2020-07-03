@@ -53,12 +53,6 @@ class Stagem_Estimator_Block_Adminhtml_Addon_Edit_Tab_Form extends Mage_Adminhtm
 			'name'      => 'type',
 			'required'  => true,
             'values'   => Mage::getModel('stagem_estimator/system_config_type')->toOptionArray(),
-
-            /*'options'   => array(
-				'input' => $this->__('Input'),
-				'select' => $this->__('Select'),
-				'checkbox' => $this->__('Checkbox'),
-			),*/
 		));
 
         $fieldset->addField('name', 'text', array(
@@ -157,6 +151,23 @@ EUR | 1 = 29
 				0 => $this->__('Disabled'),
 			),
 		));
+
+        $fieldset->addField('placeholder', 'text', array(
+            'name'     => 'placeholder',
+            'label'    => $this->__('Placeholder'),
+            'title'    => $this->__('Placeholder'),
+            'required' => false,
+            'after_element_html' => '<small></small>'
+        ));
+
+        $fieldset->addField('comment', 'textarea', array(
+            'name'     => 'Comment',
+            'label'    => $this->__('Comment'),
+            'title'    => $this->__('Comment'),
+            'required' => false,
+            'style'    => 'width: 100%; height: 200px;',
+            'after_element_html' => '<small>Information which help a user enter or select correct data.</small>'
+        ));
 
 		$fieldset->addField('priority', 'text', array(
 			'label'     => $this->__('Priority'),

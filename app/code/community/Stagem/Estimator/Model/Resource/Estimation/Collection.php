@@ -5,11 +5,11 @@
  * @author Serhii Popov <popow.serhii@gmail.com>
  */
 
-class Stagem_Estimator_Model_Resource_Addon_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
+class Stagem_Estimator_Model_Resource_Estimation_Collection extends Mage_Core_Model_Resource_Db_Collection_Abstract
 {
     protected function _construct()
     {
-        $this->_init('stagem_estimator/addon');
+        $this->_init('stagem_estimator/estimation');
     }
 
     public function addStoreFilter($store)

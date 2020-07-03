@@ -14,8 +14,9 @@
       ["app/design/adminhtml/default/default/layout/stagem/estimator.xml", "app/design/adminhtml/default/default/layout/stagem/estimator.xml"],
       ["app/design/frontend/base/default/layout/stagem/estimator.xml", "app/design/frontend/base/default/layout/stagem/estimator.xml"],
       ["app/locale/fr_FR/Stagem_Estimator.csv", "app/locale/fr_FR/Stagem_Estimator.csv"],
-      ["app/design/frontend/base/default/template/stagem/estimator/form.phtml", "app/design/frontend/base/default/template/stagem/estimator/form.phtml"],
-      ["app/locale/en_US/template/email/stagem/estimator/form.html", "app/locale/en_US/template/email/stagem/estimator/form.html"]
+      ["app/design/frontend/base/default/template/stagem/estimator/", "app/design/frontend/base/default/template/stagem/estimator/"],
+      ["skin/frontend/base/default/stagem/estimator/", "skin/frontend/base/default/stagem/estimator/"],
+      ["app/locale/en_US/template/email/stagem/estimator/", "app/locale/en_US/template/email/stagem/estimator/form.html"]
     ]
   }
 }
