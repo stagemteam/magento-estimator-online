@@ -7,6 +7,9 @@
  */
 class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
 {
+    const PRICE_FREE = 0;
+    const PRICE_VARIABLE = -1;
+
     // @TODO Move it to config.xml and make dynamic
     const TYPE_TEXT = 'text';
     const TYPE_NUMBER = 'number';
@@ -28,10 +31,15 @@ class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
 
     public function isMultiple()
     {
-        $variations = explode("\n", $this->getPriceCondition());
+        $variations = $this->getPriceConditions();
 
         // If we have more than one element in array, then it is multiple. There is no need count all elements.
         return isset($variations[1]);
+    }
+
+    public function getPriceConditions()
+    {
+        return explode("\n", $this->getPriceCondition());
     }
 
     /**
@@ -68,7 +76,7 @@ class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
     {
         $conditions = $this->parsePriceConditions();
 
-        $price = 0;
+        $price = self::PRICE_FREE;
         if (in_array($this->getType(), [
             Stagem_Estimator_Model_Addon::TYPE_TEXT,
             Stagem_Estimator_Model_Addon::TYPE_NUMBER,
@@ -76,7 +84,7 @@ class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
         ])) {
             // Input element can have only one texted condition
             $condition = array_shift($conditions);
-            if (isset($condition['from'])) {
+            if (isset($condition['from']) && is_numeric($condition['from'])) {
                 if ($this->getFree()) {
                     $input = $input - $this->getFree();
                 }
@@ -87,8 +95,10 @@ class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
                     }
                     $price = $piece * $condition['price'];
                 }
-            } else {
+            } elseif (is_numeric($condition['from'])) {
                 $price = $input * $condition['price'];
+            } else {
+                $price = self::PRICE_VARIABLE;
             }
         } else {
             $condition = $conditions[$input];

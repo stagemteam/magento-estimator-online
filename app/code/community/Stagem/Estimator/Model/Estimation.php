@@ -27,12 +27,26 @@ class Stagem_Estimator_Model_Estimation extends Mage_CatalogRule_Model_Rule
         //echo $addons->getSelect();
         //die(__METHOD__);
 
+        $selectedAddons = $this->getSelectedAddons();
+
         $total = $product->getPrice();
         foreach ($addons as $addon) {
             $total += $addon->calculate($selectedAddons[$addon->getId()]);
         }
 
         return $total;
+    }
+
+    /**
+     * @param Stagem_Estimator_Model_Addon $addon
+     */
+    public function calculate($addon)
+    {
+        $selectedAddons = $this->getSelectedAddons();
+
+        $price = $addon->calculate($selectedAddons[$addon->getId()]);
+
+        return $price;
     }
 
     /**

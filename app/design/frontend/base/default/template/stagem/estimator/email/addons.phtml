@@ -13,6 +13,10 @@
             <![endif]-->
             <div class="column" style="display: inline-block; vertical-align: top; width: 100%;">
                 <table width="100%" style=" width: 100%; border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
+	                <?php /** @var Stagem_Estimator_Model_Estimation $estimation */ ?>
+	                <?php /** @var Stagem_Estimator_Model_Addon $addon */ ?>
+	                <?php $estimation = $this->getEstimation(); ?>
+	                <?php foreach($estimation->getAddons() as $addon) : ?>
                     <tr>
                         <td>
                             <!-- line- -->
@@ -28,10 +32,14 @@
 
                                             <tr>
                                                 <td class="text text__head center" style="font-size: 11px; font-weight: bold; line-height: 16px; padding: 0; text-align: left !important;">
-                                                    <p style="font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 14px; line-height: 1.42; font-weight: normal; border: 0 none; color: #7D7D7D; text-align: left; vertical-align: top; margin: 0; padding: 0;">Additional requirement of pipes and wires</p>
+                                                    <p style="font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 14px; line-height: 1.42; font-weight: normal; border: 0 none; color: #7D7D7D; text-align: left; vertical-align: top; margin: 0; padding: 0;">
+	                                                    <?= $addon->getName() ?> - <i><?= $this->getMeasureValue($addon) ?></i>
+                                                    </p>
                                                 </td>
                                                 <td class="text text__head center" style="font-size: 11px; font-weight: bold; line-height: 16px; padding: 0; text-align: left !important;">
-                                                    <p style="font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 14px; line-height: 1.42; font-weight: normal; border: 0 none; color: #3d3d3d;text-align: right; vertical-align: top; margin: 0; padding: 0;">10$/ft</p>
+                                                    <p style="font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 14px; line-height: 1.42; font-weight: normal; border: 0 none; color: #3d3d3d;text-align: right; vertical-align: top; margin: 0; padding: 0;">
+	                                                    <?= $this->getPriceValue($addon) ?>
+                                                    </p>
                                                 </td>
                                             </tr>
 
@@ -47,6 +55,17 @@
                             </table><!-- end line- -->
                         </td>
                     </tr>
+	                <?php endforeach; ?>
+
+
+
+
+
+
+
+
+
+
                     <tr>
                         <td>
                             <!-- line- -->
