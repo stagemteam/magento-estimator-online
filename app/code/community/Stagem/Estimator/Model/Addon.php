@@ -76,14 +76,18 @@ class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
     {
         $conditions = $this->parsePriceConditions();
 
+        $condition = $this->isMultiple()
+            ? $conditions[$input]
+            : array_shift($conditions);
+
         $price = self::PRICE_FREE;
         if (in_array($this->getType(), [
             Stagem_Estimator_Model_Addon::TYPE_TEXT,
             Stagem_Estimator_Model_Addon::TYPE_NUMBER,
+            Stagem_Estimator_Model_Addon::TYPE_TEXTAREA,
             Stagem_Estimator_Model_Addon::TYPE_INPUT_SELECT,
         ])) {
             // Input element can have only one texted condition
-            $condition = array_shift($conditions);
             if (isset($condition['from']) && is_numeric($condition['from'])) {
                 if ($this->getFree()) {
                     $input = $input - $this->getFree();
@@ -100,10 +104,12 @@ class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
             } else {
                 $price = self::PRICE_VARIABLE;
             }
+        } elseif (array_key_exists('price', $condition)) {
+            $price = ($condition['price'] === self::PRICE_FREE)
+                ? self::PRICE_FREE
+                : $condition['price'];
         } else {
-            $condition = $conditions[$input];
-
-            $price = $condition['price'];
+            $price = self::PRICE_VARIABLE;
         }
 
         return $price;

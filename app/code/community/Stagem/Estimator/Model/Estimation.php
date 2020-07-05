@@ -89,7 +89,9 @@ class Stagem_Estimator_Model_Estimation extends Mage_CatalogRule_Model_Rule
     {
         $addonIds = array_keys($selectedAddons = $this->getSelectedAddons());
         $addons = Mage::getModel('stagem_estimator/addon')->getCollection()
-            ->addFieldToFilter('id', ['in' => $addonIds]);
+            ->addFieldToFilter('id', ['in' => $addonIds])
+            ->setOrder('priority', 'ASC')
+        ;
 
         return $addons;
     }

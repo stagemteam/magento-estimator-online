@@ -13,7 +13,10 @@
  * @license https://opensource.org/licenses/MIT The MIT License (MIT)
  */
 
-class Stagem_Estimator_Block_Email_Addon extends Mage_Core_Block_Template
+/**
+ * @method Stagem_Estimator_Model_Estimation getEstimation()
+ */
+class Stagem_Estimator_Block_Email_Addons extends Mage_Core_Block_Template
 {
     /**
      * @param Stagem_Estimator_Model_Addon $addon
@@ -27,12 +30,12 @@ class Stagem_Estimator_Block_Email_Addon extends Mage_Core_Block_Template
 
         $price = $addon->calculate($selectedValue);
 
-        if ($price === Stagem_Estimator_Model_Addon::PRICE_FREE) {
-            $price = $this->__('free');
+        if ($price == Stagem_Estimator_Model_Addon::PRICE_FREE) {
+            $price = $this->__('Free');
         } elseif ($price === Stagem_Estimator_Model_Addon::PRICE_VARIABLE) {
-            $price = $this->__('variable');
+            $price = $this->__('Variable');
         } else {
-            $price = $price . '$';
+            $price = Mage::helper('core')->currency($price, true, false);
         }
 
         return $price;
@@ -44,24 +47,29 @@ class Stagem_Estimator_Block_Email_Addon extends Mage_Core_Block_Template
      */
     public function getMeasureValue($addon)
     {
+        if (!$addon->isMultiple() && in_array($addon->getType(), [
+            Stagem_Estimator_Model_Addon::TYPE_RADIO,
+            Stagem_Estimator_Model_Addon::TYPE_CHECKBOX,
+        ])) {
+            return null;
+        }
+
         $estimation = $this->getEstimation();
         $selectedValue = $estimation->getSelectedAddons()[$addon->getId()];
 
-        $priceConditions = $addon->getPriceConditions();
-        //$label = $addon->getName();
+        $conditions = $addon->getPriceConditions();
 
-        $priceCondition = [];
-        $priceCondition = $addon->isMultiple()
-            ? $priceConditions[$selectedValue]
-            : $priceCondition = array_shift($priceConditions);
+        $condition = $addon->isMultiple()
+            ? $conditions[$selectedValue]
+            : array_shift($conditions);
 
-        $parsedCondition = $addon->parsePriceCondition($priceCondition);
+        $parsedCondition = $addon->parsePriceCondition($condition);
 
-        $unit = $this->__($priceCondition['from_unit']);
-        if (isset($priceCondition['to'])) {
-            $unit = $selectedValue . ' ' . $unit;
+        $unit = $parsedCondition['from_unit'] ?? $selectedValue;
+        if (isset($parsedCondition['to_unit'])) {
+            $unit = $selectedValue . ' ' . $this->__($parsedCondition['to_unit']);
         }
 
-        return $unit;
+        return ' - ' . $unit;
     }
 }

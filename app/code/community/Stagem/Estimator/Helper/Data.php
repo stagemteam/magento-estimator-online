@@ -19,11 +19,10 @@ class Stagem_Estimator_Helper_Data extends Mage_Core_Helper_Abstract
 
         $estimation = $estimatorHelper->populateFormData($data);
 
-        //$data['total_price'] = $estimation->getTotalPrice();
-
         $vars = [];
-        $vars['subject'] = 'Online Estimator evaluation';
+        $vars['subject'] = 'Online HVAC Evaluation | ' . Mage::getStoreConfig('general/store_information/name');
         $vars['estimation'] = $estimation;
+        $vars['createdAt'] = new DateTime();
         $vars['phones'] = explode(',', Mage::getStoreConfig('general/store_information/phone'));
 
         return $dataHelper->sendSimpleMail(
