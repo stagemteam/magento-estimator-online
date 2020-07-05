@@ -68,7 +68,7 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
                 ];
 
                 foreach ($this->getProducts($configurable) as $simple) {
-                    $this->data['powers'][] = [
+                    $this->data['products'][] = [
                         'id' => $simple->getId(),
                         'modelId' => $configurable->getId(),
                         'value' => $simple->getId(),
@@ -146,9 +146,9 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
         return Mage::helper('core')->jsonEncode($this->data['configurables']);
     }
 
-    public function powersToJson()
+    public function productsToJson()
     {
-        return Mage::helper('core')->jsonEncode($this->data['powers']);
+        return Mage::helper('core')->jsonEncode($this->data['products']);
     }
 
     public function addonsToJson()
@@ -183,5 +183,22 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
         }
 
         return Mage::helper('core')->jsonEncode($data);
+    }
+
+    public function estimationToJson()
+    {
+        $hash = Mage::app()->getRequest()->getParam('hash');
+        if (!$hash) {
+            return Mage::helper('core')->jsonEncode(null);
+        }
+
+        $estimation = Mage::getModel('stagem_estimator/estimation')->load($hash, 'uniq');
+
+        $data = $estimation->getData();
+        $data['addons'] = $estimation->getSelectedAddons();
+        $data['customer'] = $estimation->getCustomer();
+        $json = Mage::helper('core')->jsonEncode($data);
+
+        return $json;
     }
 }
