@@ -6,11 +6,11 @@
 			<sort_order>80</sort_order>
 
 			<children>
-				<stagem_estimator_addons translate="title" module="stagem_estimator">
+				<addons translate="title" module="stagem_estimator">
 					<title>Add-ons</title>
 					<action>adminhtml/addon/index</action>
 					<sort_order>10</sort_order>
-				</stagem_estimator_addons>
+				</addons>
 				<!--<stagem_estimator_block translate="title" module="stagem_estimator">
 					<title>Seo Block</title>
 					<action>adminhtml/seoBlock/index</action>
@@ -46,10 +46,10 @@
 					<stagem_estimator translate="title" module="stagem_estimator">
 						<title>Estimator</title>
 						<children>
-							<stagem_estimator_addons translate="title" module="stagem_estimator">
+							<addons translate="title" module="stagem_estimator">
 								<title>Add-ons</title>
 								<sort_order>10</sort_order>
-							</stagem_estimator_addons>
+							</addons>
 						</children>
 					</stagem_estimator>
 
