@@ -19,7 +19,7 @@ class Stagem_Estimator_Helper_Estimator extends Mage_Core_Helper_Abstract
         'product_id' => 'product',
         'addons' => 'addons',
         'customer' => 'customer',
-        'photo' => 'filename',
+        'files' => 'files',
     ];
 
     /**
@@ -32,7 +32,7 @@ class Stagem_Estimator_Helper_Estimator extends Mage_Core_Helper_Abstract
         $estimation = Mage::getModel('stagem_estimator/estimation');
         $estimation->setData('store_id', Mage::app()->getStore()->getId());
         $estimation->setData('created_at', (new DateTime())->format('Y-m-d H:i:s'));
-        $estimation->setData('uniq', md5(uniqid(rand(), true))); // @link https://stackoverflow.com/a/1846229/1335142
+        $estimation->setData('hash', md5(uniqid(rand(), true))); // @link https://stackoverflow.com/a/1846229/1335142
 
         $formFields = array_flip($this->fieldsMap);
         foreach ($formFields as $formField => $dbField) {

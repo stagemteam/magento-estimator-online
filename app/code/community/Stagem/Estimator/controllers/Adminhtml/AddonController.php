@@ -48,8 +48,6 @@ class Stagem_Estimator_Adminhtml_AddonController extends Mage_Adminhtml_Controll
 	public function saveAction() {
 		if ($data = $this->getRequest()->getPost()) {
 			try {
-				//$data = $this->_filterDates($data, array('updated_at'));
-
                 if (isset($data['stores'])) {
                     if (in_array('0', $data['stores'])) {
                         $data['store_id'] = '0';
@@ -59,33 +57,25 @@ class Stagem_Estimator_Adminhtml_AddonController extends Mage_Adminhtml_Controll
                     unset($data['stores']);
                 }
 
-				/** @var Stagem_Estimator_Model_MetaTag_Factory $factory */
-				$factory = Mage::getModel('stagem_estimator/metaTag_factory');
-
-				$data['seo_attributes'] = implode(';', $factory->create($data['type'])->handleSeoAttributes($data['seo_attributes']));
-				$data['updated_at'] = Mage::getModel('core/date')->date('Y-m-d H:i:s');
 				if (!$this->getRequest()->getParam('id')) {
 					$data['created_at'] = Mage::getModel('core/date')->date('Y-m-d H:i:s');
+					$data['updated_at'] = Mage::getModel('core/date')->date('Y-m-d H:i:s');
 				}
 
-                if (isset($data['rule']['conditions'])) {
+                /*if (isset($data['rule']['conditions'])) {
                     $data['conditions'] = $data['rule']['conditions'];
                 }
-                //if (isset($data['rule']['actions'])) {
-                //    $data['actions'] = $data['rule']['actions'];
-                //}
-                unset($data['rule']);
-                //$model->loadPost($data);
+                unset($data['rule']);*/
 
                 /** @var Stagem_Estimator_Model_Addon $model */
-				$model = Mage::getModel('stagem_estimator/rule');
-				$model->setData($data)
-                //->setId($this->getRequest()->getParam('id'));
-                /*$model*/->loadPost($data)
+                $model = Mage::getModel('stagem_estimator/addon');
+                $mergedData = array_merge($model->getData(), $data);
+                //$model->loadPost($data);
+                $model->setData($mergedData)
                     ->setId($this->getRequest()->getParam('id'));
 				$model->save();
 
-				Mage::getSingleton('adminhtml/session')->addSuccess($this->__('SEO Rule was saved successfully'));
+				Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Item was saved successfully'));
 				Mage::getSingleton('adminhtml/session')->setMetaData(false);
 
 				if ($this->getRequest()->getParam('back', false)) {
@@ -97,7 +87,7 @@ class Stagem_Estimator_Adminhtml_AddonController extends Mage_Adminhtml_Controll
 			} catch (Mage_Core_Exception $e) {
 				Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
 			} catch (Exception $e) {
-				Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while saving this SEO Rule'));
+				Mage::getSingleton('adminhtml/session')->addError($this->__('An error occurred while saving this item'));
 			}
 
 			return;
@@ -111,7 +101,7 @@ class Stagem_Estimator_Adminhtml_AddonController extends Mage_Adminhtml_Controll
     {
         $id = (int) $this->getRequest()->getParam('id');
         try {
-            $model = Mage::getModel('stagem_estimator/rule')->load($id);
+            $model = Mage::getModel('stagem_estimator/addon')->load($id);
 
             $data = $model->getData();
             $data['id'] = null;
@@ -119,12 +109,12 @@ class Stagem_Estimator_Adminhtml_AddonController extends Mage_Adminhtml_Controll
             $data['updated_at'] = Mage::getModel('core/date')->date('Y-m-d H:i:s');
             $data['created_at'] = Mage::getModel('core/date')->date('Y-m-d H:i:s');
 
-            $copy = Mage::getModel('stagem_estimator/rule');
+            $copy = Mage::getModel('stagem_estimator/addon');
             $copy->setData($data);
             $copy->save();
             $id = $copy->getId();
 
-            Mage::getSingleton('adminhtml/session')->addSuccess($this->__('SEO Rule was copied successfully'));
+            Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Item was copied successfully'));
             Mage::getSingleton('adminhtml/session')->setMetaData(false);
         } catch (Exception $e) {
             Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
@@ -135,8 +125,8 @@ class Stagem_Estimator_Adminhtml_AddonController extends Mage_Adminhtml_Controll
 	public function deleteAction() {
 		if ($id = $this->getRequest()->getParam('id')) {
 			try {
-				Mage::getModel('stagem_estimator/meta')->setId($id)->delete();
-				Mage::getSingleton('adminhtml/session')->addSuccess($this->__('SEO Rule was deleted successfully'));
+				Mage::getModel('stagem_estimator/addon')->setId($id)->delete();
+				Mage::getSingleton('adminhtml/session')->addSuccess($this->__('Addon was deleted successfully'));
 			} catch (Exception $e) {
 				Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
 				$this->_redirect('*/*/edit', array('id' => $id));
@@ -156,9 +146,9 @@ class Stagem_Estimator_Adminhtml_AddonController extends Mage_Adminhtml_Controll
 		$this->loadLayout()
 			// Make the active menu match the menu config nodes (without 'children' inbetween)
 			->_setActiveMenu('stagem_estimator/stagem_estimator_meta')
-			->_title($this->__('SEO'))->_title($this->__('Meta Tags'))
-			->_addBreadcrumb($this->__('SEO'), $this->__('SEO'))
-			->_addBreadcrumb($this->__('Meta Tags'), $this->__('Meta Tags'));
+			->_title($this->__('Estimator'))->_title($this->__('Addons'))
+			->_addBreadcrumb($this->__('Estimator'), $this->__('Estimator'))
+			->_addBreadcrumb($this->__('Addons'), $this->__('Addons'));
 
 		return $this;
 	}

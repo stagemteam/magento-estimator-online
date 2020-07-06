@@ -27,22 +27,26 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
 
     protected function _construct()
     {
-        $this->getnerateData();
+        $this->generateData();
         parent::_construct();
     }
 
     protected function _toHtml()
     {
+        if (!Mage::getStoreConfig('stagem_estimator/general/enabled')) {
+            return null;
+        }
+            
         //$this->setTemplate('followupemail/related.phtml');
         return $this->renderView();
     }
     
     public function getFormUrl()
     {
-        return Mage::getUrl('estimator/index/create');
+        return Mage::getUrl('estimator/online/create');
     }
 
-    public function getnerateData()
+    public function generateData()
     {
         foreach ($this->getCategories() as $category) {
             $this->data['categories'][] = [
@@ -154,7 +158,8 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
     public function addonsToJson()
     {
         $addons = Mage::getModel('stagem_estimator/addon')->getCollection()
-            ->addFieldToFilter('is_active', 1);
+            ->addFieldToFilter('is_active', 1)
+            ->setOrder('priority', 'ASC');
 
         $data = [
             'separated' => [],
@@ -164,7 +169,6 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
         foreach ($addons as $addon) {
             $element = [
                 'id' => $addon->getId(),
-                'order' => $addon->getPriority(),
                 'type' => $addon->getType(),
                 'value' => $addon->getValue(),
                 'label' => $addon->getName(),
@@ -192,11 +196,13 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
             return Mage::helper('core')->jsonEncode(null);
         }
 
-        $estimation = Mage::getModel('stagem_estimator/estimation')->load($hash, 'uniq');
+        /** @var Stagem_Estimator_Model_Estimation $estimation */
+        $estimation = Mage::getModel('stagem_estimator/estimation')->load($hash, 'hash');
 
         $data = $estimation->getData();
         $data['addons'] = $estimation->getSelectedAddons();
         $data['customer'] = $estimation->getCustomer();
+        $data['files'] = $estimation->getFiles();
         $json = Mage::helper('core')->jsonEncode($data);
 
         return $json;

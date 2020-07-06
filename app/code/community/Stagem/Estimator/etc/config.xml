@@ -122,10 +122,11 @@
     <default>
         <stagem_estimator>
             <general>
-                <enabled>0</enabled>
+                <enabled>1</enabled>
+                <file_extemsions><![CDATA[jpg, jpeg, png, gif]]></file_extemsions>
                 <recipient_email><![CDATA[hello@localhost.com]]></recipient_email>
                 <sender_email_identity>general</sender_email_identity>
-                <email_template>stagem_estimator_form_general_email_template</email_template>
+                <email_template>stagem_estimator_general_email_template</email_template>
             </general>
         </stagem_estimator>
     </default>

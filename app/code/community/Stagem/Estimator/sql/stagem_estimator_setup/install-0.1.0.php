@@ -89,6 +89,10 @@ $estimationTable = $installer->getConnection()
     ->addColumn('manufacturer_id', Varien_Db_Ddl_Table::TYPE_INTEGER, 10, [
         'nullable' => false,
     ], 'Manufacturer ID')
+    ->addColumn('is_ready_to_install', Varien_Db_Ddl_Table::TYPE_BOOLEAN, 1, [
+        'nullable' => false,
+        'default' => 0,
+    ], 'Ready to install?')
     ->addColumn('hash', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255, [
         'nullable' => false,
     ], 'Unique estimation hash')
@@ -98,7 +102,7 @@ $estimationTable = $installer->getConnection()
     ->addColumn('customer', Varien_Db_Ddl_Table::TYPE_TEXT, null, [
         'nullable' => false,
     ], 'Customer info in JSON format')
-    ->addColumn('photo', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255, [
+    ->addColumn('files', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255, [
         'nullable' => true,
     ], 'Path to a photo on the server')
 ;
@@ -114,11 +118,11 @@ INSERT INTO `{$tableName}` (`store_id`, `created_at`, `updated_at`, `type`, `nam
     'radio',
     'What type of house you have',
     '0 | Bungalow
-0 | Two storey
+0 | Two storey apartment
 0 | Two storey house
 0 | Condo',
     '1',
-    '5',
+    '0',
     '1',
     '',
     ''
@@ -129,7 +133,7 @@ INSERT INTO `{$tableName}` (`store_id`, `created_at`, `updated_at`, `type`, `nam
     '{$date->format('Y-m-d H:i:s')}',
     'text',
     'Additional requirement of pipes and wires',
-    '10 | 1 piece = 3 feets',
+    '10 | 1 pc = 3 ft',
     '1',
     '5',
     '1',
@@ -141,8 +145,21 @@ INSERT INTO `{$tableName}` (`store_id`, `created_at`, `updated_at`, `type`, `nam
     '{$date->format('Y-m-d H:i:s')}',
     '{$date->format('Y-m-d H:i:s')}',
     'text',
+    'Length from the electronic shield to the outdoor unit',
+    '5 | ft',
+    '1',
+    '0',
+    '1',
+    '',
+    ''
+    ),
+    (
+    '{$defaultStoreId}',
+    '{$date->format('Y-m-d H:i:s')}',
+    '{$date->format('Y-m-d H:i:s')}',
+    'text',
     'Additional required aluminum cover (white/brown)',
-    '40 | 1 piece = 3 feets',
+    '40 | 1 pc = 3 ft',
     '1',
     '5',
     '0',

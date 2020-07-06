@@ -19,6 +19,8 @@ class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
     const TYPE_TEXTAREA = 'textarea';
     const TYPE_INPUT_SELECT = 'input-select'; // @TODO
 
+    protected $priceConditions;
+
     protected function _construct()
     {
         $this->_init('stagem_estimator/addon');
@@ -39,7 +41,11 @@ class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
 
     public function getPriceConditions()
     {
-        return explode("\n", $this->getPriceCondition());
+        if (!$this->priceConditions) {
+            $this->priceConditions = explode("\n", $this->getData('price_condition'));
+        }
+
+        return $this->priceConditions;
     }
 
     /**
@@ -105,7 +111,7 @@ class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
                 $price = self::PRICE_VARIABLE;
             }
         } elseif (array_key_exists('price', $condition)) {
-            $price = ($condition['price'] === self::PRICE_FREE)
+            $price = ($condition['price'] == self::PRICE_FREE)
                 ? self::PRICE_FREE
                 : $condition['price'];
         } else {
@@ -117,7 +123,7 @@ class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
 
     public function parsePriceConditions()
     {
-        $conditions = explode("\n", $this->getPriceCondition());
+        $conditions = $this->getPriceConditions();
 
         $parsed = [];
         foreach ($conditions as $condition) {

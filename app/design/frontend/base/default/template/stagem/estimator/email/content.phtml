@@ -123,7 +123,7 @@
                             <table class="contents" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif; font-size: 14px; text-align: left; width: 100%;">
                                 <tr>
                                     <td class="text text__head center" style="font-size: 11px; font-weight: bold; line-height: 16px; padding: 0; text-align: left !important;">
-                                        <p style="font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 24px; line-height: 1.42; font-weight: normal; border: 0 none; color: #3d3d3d;text-align: left; vertical-align: top; margin: 0; padding: 0;"><?= $this->__('Total') ?></p>
+                                        <p style="font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 24px; line-height: 1.42; font-weight: normal; border: 0 none; color: #3d3d3d;text-align: left; vertical-align: top; margin: 0; padding: 0;"><?//= $this->__('Total') ?></p>
                                     </td>
                                 </tr>
                             </table>
@@ -138,7 +138,9 @@
                 <table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
                     <tr>
                         <td class="inner" style="padding: 20px 30px;">
-                            <p style="font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 24px; line-height: 1.42; font-weight: normal; border: 0 none; color: #3d3d3d;text-align: right; vertical-align: top; margin: 0; padding: 0;"><?= $this->__('Total') ?>: <?= Mage::helper('core')->currency($estimation->getTotalPrice(), true, false) ?> + <?= $this->__('Tax') ?></p>
+                            <p style="font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 24px; line-height: 1.42; font-weight: normal; border: 0 none; color: #3d3d3d;text-align: right; vertical-align: top; margin: 0; padding: 0;">
+	                            <?= $this->__('Total') ?>: <?= Mage::helper('core')->currency($estimation->getTotalPrice(), true, false) ?> + <?= $this->__('Tax') ?>
+                            </p>
                         </td>
                     </tr>
                 </table>
@@ -178,14 +180,14 @@
                         <table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
                             <tr>
                                 <td class="inner contents" style="padding: 10px; text-align: center; width: 100%;">
-                                    <a href="<?= Mage::getUrl('estimator/online/ready', ['hash' => $estimation->getUniq()]) ?>" target="_blank" style="text-decoration:none !important;-ms-text-size-adjust:none;font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif;font-size:18px;color:#FFFFFF;border-style:solid;border-color:#20B5BD;border-width:20px 100px;display:inline-block;background:#20B5BD;border-radius:6px;font-weight:normal;font-style:normal;line-height:22px;width:auto;text-align:center;" rel="noreferrer noopener">
+                                    <a href="<?= Mage::getUrl('estimator/online/ready', ['hash' => $estimation->getHash ()]) ?>" target="_blank" style="text-decoration:none !important;-ms-text-size-adjust:none;font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif;font-size:18px;color:#FFFFFF;border-style:solid;border-color:#20B5BD;border-width:20px 100px;display:inline-block;background:#20B5BD;border-radius:6px;font-weight:normal;font-style:normal;line-height:22px;width:auto;text-align:center;" rel="noreferrer noopener">
                                         <?= $this->__('Ready to Install') ?>
                                     </a>
                                 </td>
                             </tr>
                             <tr>
                                 <td align="center" class="inner contents" style="text-align: center; width: 100%;">
-                                    <a align="center" href="<?= Mage::getUrl('estimator/online/modify', ['hash' => $estimation->getUniq()]) ?>" cellpadding="0" cellspacing="0" border="0" target="_blank" style="font-family:  Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 14px; line-height: 30px; color: #3d3d3d; font-weight: normal; text-align: center; -webkit-text-size: none; margin: 0; padding: 0; border: 0 none;">
+                                    <a align="center" href="<?= Mage::getUrl('estimator/online/modify', ['hash' => $estimation->getHash()]) ?>" cellpadding="0" cellspacing="0" border="0" target="_blank" style="font-family:  Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 14px; line-height: 30px; color: #3d3d3d; font-weight: normal; text-align: center; -webkit-text-size: none; margin: 0; padding: 0; border: 0 none;">
 										<?= $this->__('Modify Estimation') ?>
                                     </a>
                                 </td>
@@ -232,7 +234,7 @@
                             <tr>
                                 <td class="inner contents" style="text-align: left; width: 100%;">
                                     <p class="h1" style="Margin: 0; color: #3d3d3d; font-size: 24px; font-weight: noremal; line-height: 140%; text-align: left; letter-spacing: 0.05em;">
-                                        <?= $this->__('All details') ?>'
+                                        <?= $this->__('All details') ?>
                                     </p>
                                 </td>
                             </tr>
@@ -254,7 +256,57 @@
     ->createBlock('stagem_estimator/email_addons')
     ->setArea('frontend')
     ->setData('estimation', $this->getEstimation())
-    ->setTemplate('stagem/estimator/email/addons.phtml')
+    ->setData('items', $this->getEstimation()->getAddons())
+    ->setTemplate('stagem/estimator/email/list.phtml')
     ->toHtml()
 ?>
 
+
+<?php if ($this->getEstimation()->getData('is_ready_to_install')) : ?>
+<!-- Customer Info -->
+<!--[if (gte mso 9)|(IE)]>
+<table width="600" align="center">
+    <tr>
+        <td>
+<![endif]-->
+<table class="outer" align="center" style="Margin: 0 auto; border-spacing: 0; color: #3d3d3d; font-family: sans-serif; max-width: 600px; width: 100%; background: #ffffff;">
+
+    <tr>
+        <td class="one-column" style="padding: 0;">
+            <table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
+                <tr>
+                    <td class="inner contents" style="padding: 20px 30px; text-align: center; width: 100%;">
+                        <table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
+                            <tr>
+                                <td width="" height="20" cellpadding="0" cellspacing="0" border="0" style="height: 20px; vertical-align: middle; font-size: 20px; line-height: 20px; margin: 0px; padding: 0px; border-collapse: collapse; border-spacing: 0; border: 0 none;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="inner contents" style="text-align: left; width: 100%;">
+                                    <p class="h1" style="Margin: 0; color: #3d3d3d; font-size: 24px; font-weight: noremal; line-height: 140%; text-align: left; letter-spacing: 0.05em;">
+                                        <?= $this->__('Customer information') ?>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+</table>
+<!--[if (gte mso 9)|(IE)]>
+</td>
+</tr>
+</table>
+<![endif]-->
+
+<?php echo $this->getLayout()
+    ->createBlock('stagem_estimator/email_customer')
+    ->setArea('frontend')
+    ->setData('items', $this->getEstimation()->getCustomer())
+    ->setTemplate('stagem/estimator/email/list.phtml')
+    ->toHtml()
+?>
+
+<?php endif; ?>

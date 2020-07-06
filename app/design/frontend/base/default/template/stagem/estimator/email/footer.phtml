@@ -1,0 +1,89 @@
+<?php
+/**
+ * The MIT License (MIT)
+ * Copyright (c) 2020 Stagem Team
+ * This source file is subject to The MIT License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/MIT
+ *
+ * @category Stagem
+ * @package Stagem_Estimator
+ * @author Serhii Popov <popow.serhii@gmail.com>
+ * @license https://opensource.org/licenses/MIT The MIT License (MIT)
+ */
+?>
+<!--[if (gte mso 9)|(IE)]>
+<table width="600" align="center">
+    <tr>
+        <td>
+<![endif]-->
+<table class="outer" align="center" style="Margin: 0 auto; border-spacing: 0; color: #3d3d3d; font-family: sans-serif; max-width: 600px; width: 100%; background: #3d3d3d;">
+
+    <tr>
+        <td class="one-column" style="padding: 0;">
+            <table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
+                <tr>
+                    <td class="inner contents" style="padding: 10px 30px; text-align: center; width: 100%;">
+                        <table width="100%" style="border-spacing: 0; color: #ffffff; font-family: sans-serif;">
+                            <tr>
+                                <td height="20" cellpadding="0" cellspacing="0" border="0" style="height: 20px; vertical-align: middle; font-size: 20px; line-height: 20px; margin: 0px; padding: 0px; border-collapse: collapse; border-spacing: 0; border: 0 none;">&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td class="inner contents" style="padding: 0 30px; text-align: center; width: 100%;">
+                                    <!-- line- -->
+                                    <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; margin: auto; padding: 0; border-collapse: collapse; border-spacing: 0; border: 0 none;">
+                                        <tr>
+                                            <td height="25" cellpadding="0" cellspacing="0" border="0" style="height: 25px; vertical-align: top; border-collapse: collapse; border-spacing: 0; border: 0 none;"></td>
+                                            <td width="220" height="25" cellpadding="0" cellspacing="0" border="0" style="width: 220px; height: 25px; vertical-align: top; border-collapse: collapse; border-spacing: 0; border: 0 none;">
+                                                <a href="#" cellpadding="0" cellspacing="0" border="0" target="_blank" style="font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.4; color: #ffffff; font-weight: normal; text-align: left; -webkit-text-size: none; margin: 0; padding: 0; border: 0 none; text-decoration: none;">
+                                                    <?= $this->__('Help') ?>
+                                                </a>
+                                                <a href="#" cellpadding="0" cellspacing="0" border="0" target="_blank" style="font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.4; color: #ffffff; font-weight: normal; text-align: left; -webkit-text-size: none; margin: 0; padding: 0; border: 0 none; text-decoration: none;">
+                                                    | <?= $this->__('Feedback') ?> |
+                                                </a>
+                                                <a href="#" cellpadding="0" cellspacing="0" border="0" target="_blank" style="font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.4; color: #ffffff; font-weight: normal; text-align: left; -webkit-text-size: none; margin: 0; padding: 0; border: 0 none; text-decoration: none;">
+                                                    <?= $this->__('About Us') ?>
+                                                </a>
+                                            </td>
+                                            <td height="25" cellpadding="0" cellspacing="0" border="0" style="height: 25px; vertical-align: top; border-collapse: collapse; border-spacing: 0; border: 0 none;"></td>
+                                        </tr>
+                                    </table><!-- end line- -->
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="20" cellpadding="0" cellspacing="0" border="0" style="width: 100%; height: 20px; vertical-align: middle; font-size: 20px; line-height: 20px; margin: 0px; padding: 0px; border-collapse: collapse; border-spacing: 0; border: 0 none;">
+                                    <img src="<?= $this->getSkinUrl('stagem/estimator/img/line-f.png') ?>" width="100%" height="30" alt="#" border="0" style="display: block; border: 0 none;"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="inner contents" style="padding: 0 30px; text-align: center; width: 100%;">
+                                    <p class="h1" style="Margin: 0; color: #b1b1b1; font-size: 11px; font-weight: noremal; line-height: 100%; text-align: center; letter-spacing: 0.05em;">
+                                        <?= $this->__('Please note that deals are subject to availabilty and its prices are subject to change.') ?>
+                                    </p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="inner contents" style="padding: 10px 30px; text-align: center; width: 100%;">
+                                    <p class="h1" style="Margin: 0; color: #b1b1b1; font-size: 11px; font-weight: noremal; line-height: 140%; text-align: center; letter-spacing: 0.05em;">
+                                        <?php $linkStyle = 'color:#2199e8;font-family:sans-serif;font-weight:400;padding:0;margin:0;text-decoration:none;'; ?>
+                                        <?php $email = Mage::getStoreConfig('trans_email/ident_sales/email'); ?>
+                                        <?= sprintf($this->__("Have an issue that we can help with? Email us at <a style='%s' href='mailto:%s'>%s</a>, or write to us at %s"), $linkStyle, $email, $email, Mage::getStoreConfig('general/store_information/address'))?>
+                                        <br/>
+                                        <?= sprintf($this->__("Learn about our <a href='%s' style='%s'>Privacy Policy</a>"), '#', $linkStyle) ?>
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+
+</table>
+<!--[if (gte mso 9)|(IE)]>
+</td>
+</tr>
+</table>
+<![endif]-->

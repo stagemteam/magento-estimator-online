@@ -18,6 +18,23 @@
  */
 class Stagem_Estimator_Block_Email_Addons extends Mage_Core_Block_Template
 {
+    public function getValue($index)
+    {
+        $addon = $this->getItems()->getItemById($index);
+
+        return $this->getPriceValue($addon);
+    }
+    
+    public function getLabel($index)
+    {
+        $addon = $this->getItems()->getItemById($index);
+        $measureValue = $this->getMeasureValue($addon);
+
+        $value = $this->__($addon->getName()) . sprintf('<i>%s</i>', $this->getMeasureValue($addon));
+        
+        return $value;
+    }
+    
     /**
      * @param Stagem_Estimator_Model_Addon $addon
      * @param int|string $input
@@ -25,7 +42,6 @@ class Stagem_Estimator_Block_Email_Addons extends Mage_Core_Block_Template
     public function getPriceValue($addon)
     {
         $estimation = $this->getEstimation();
-        //$priceCondition = $addon->get
         $selectedValue = $estimation->getSelectedAddons()[$addon->getId()];
 
         $price = $addon->calculate($selectedValue);
@@ -70,6 +86,6 @@ class Stagem_Estimator_Block_Email_Addons extends Mage_Core_Block_Template
             $unit = $selectedValue . ' ' . $this->__($parsedCondition['to_unit']);
         }
 
-        return ' - ' . $unit;
+        return ($unit = trim($unit)) ? ' - ' . $unit : '';
     }
 }

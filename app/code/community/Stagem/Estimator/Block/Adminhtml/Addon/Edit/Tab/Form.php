@@ -142,6 +142,16 @@ EUR | 1 = 29
 			),
 		));
 
+        $fieldset->addField('is_separate', 'select', array(
+            'label'     => $this->__('Show addon in a separate block'),
+            'name'      => 'is_separate',
+            'required'  => false,
+            'options'   => array(
+                1 => $this->__('Yes'),
+                0 => $this->__('No'),
+            ),
+        ));
+
 		$fieldset->addField('is_active', 'select', array(
 			'label'     => $this->__('Status'),
 			'name'      => 'is_active',

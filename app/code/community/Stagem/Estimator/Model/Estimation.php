@@ -49,6 +49,11 @@ class Stagem_Estimator_Model_Estimation extends Mage_CatalogRule_Model_Rule
         return $price;
     }
 
+    public function getFiles()
+    {
+        return Mage::helper('core')->jsonDecode($this->getData('files'));
+    }
+    
     /**
      * @return array
      */
