@@ -6,11 +6,11 @@
 			<sort_order>80</sort_order>
 
 			<children>
-				<addons translate="title" module="stagem_estimator">
+				<addon translate="title" module="stagem_estimator">
 					<title>Add-ons</title>
 					<action>adminhtml/addon/index</action>
 					<sort_order>10</sort_order>
-				</addons>
+				</addon>
 				<!--<stagem_estimator_block translate="title" module="stagem_estimator">
 					<title>Seo Block</title>
 					<action>adminhtml/seoBlock/index</action>
@@ -23,10 +23,6 @@
 
 	<acl>
 		<resources>
-			<all>
-				<title>Allow Everything</title>
-			</all>
-
 			<admin>
 				<children>
 
@@ -46,10 +42,10 @@
 					<stagem_estimator translate="title" module="stagem_estimator">
 						<title>Estimator</title>
 						<children>
-							<addons translate="title" module="stagem_estimator">
+							<addon translate="title" module="stagem_estimator">
 								<title>Add-ons</title>
 								<sort_order>10</sort_order>
-							</addons>
+							</addon>
 						</children>
 					</stagem_estimator>
 

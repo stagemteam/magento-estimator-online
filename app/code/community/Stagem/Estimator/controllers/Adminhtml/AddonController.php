@@ -159,7 +159,7 @@ class Stagem_Estimator_Adminhtml_AddonController extends Mage_Adminhtml_Controll
 	 * @return bool
 	 */
 	protected function _isAllowed()	{
-		return Mage::getSingleton('admin/session')->isAllowed('stagem_estimator/addons');
+		return Mage::getSingleton('admin/session')->isAllowed('stagem_estimator/addon');
 	}
 
 }
