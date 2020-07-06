@@ -84,6 +84,8 @@ class Stagem_Estimator_Block_Email_Addons extends Mage_Core_Block_Template
         $unit = $parsedCondition['from_unit'] ?? $selectedValue;
         if (isset($parsedCondition['to_unit'])) {
             $unit = $selectedValue . ' ' . $this->__($parsedCondition['to_unit']);
+        } elseif ($addon->isInput() && isset($parsedCondition['from_unit'])) {
+            $unit = $selectedValue . ' ' . $this->__($parsedCondition['from_unit']);
         }
 
         return ($unit = trim($unit)) ? ' - ' . $unit : '';

@@ -26,6 +26,16 @@ class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
         $this->_init('stagem_estimator/addon');
     }
 
+    public function isInput()
+    {
+        return in_array($this->getType(), [
+            Stagem_Estimator_Model_Addon::TYPE_TEXT,
+            Stagem_Estimator_Model_Addon::TYPE_NUMBER,
+            Stagem_Estimator_Model_Addon::TYPE_TEXTAREA,
+            Stagem_Estimator_Model_Addon::TYPE_INPUT_SELECT,
+        ]);
+    }
+    
     public function isSeparate()
     {
         return (bool) $this->getData('is_separate');
@@ -65,8 +75,8 @@ class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
             foreach ($conditions as $index => $condition) {
                 $value[] = [
                     'value' => $index,
-                    'label' => $condition['from_to']
-                        ? $condition['from_unit'] . ' - ' . $condition['from_to']
+                    'label' => $condition['to_unit']
+                        ? $condition['from_unit'] . ' - ' . $condition['to_unit']
                         : $condition['from_unit'],
                 ];
             }
@@ -87,14 +97,9 @@ class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
             : array_shift($conditions);
 
         $price = self::PRICE_FREE;
-        if (in_array($this->getType(), [
-            Stagem_Estimator_Model_Addon::TYPE_TEXT,
-            Stagem_Estimator_Model_Addon::TYPE_NUMBER,
-            Stagem_Estimator_Model_Addon::TYPE_TEXTAREA,
-            Stagem_Estimator_Model_Addon::TYPE_INPUT_SELECT,
-        ])) {
+        if ($this->isInput()) {
             // Input element can have only one texted condition
-            if (isset($condition['from']) && is_numeric($condition['from'])) {
+            if (isset($condition['from']) && isset($condition['to'])) {
                 if ($this->getFree()) {
                     $input = $input - $this->getFree();
                 }
@@ -105,7 +110,7 @@ class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
                     }
                     $price = $piece * $condition['price'];
                 }
-            } elseif (is_numeric($condition['from'])) {
+            } elseif (isset($condition['from_unit'])) {
                 $price = $input * $condition['price'];
             } else {
                 $price = self::PRICE_VARIABLE;
@@ -168,6 +173,8 @@ class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
             $value['to'] = trim($right[0]);
             $value['to_unit'] = trim($right[1]);
         } else {
+            //$left = explode(' ', trim($parts[0]));
+            //$right = explode(' ', trim($parts[1]));
             $value['from_unit'] = trim($parts[0]);
         }
 
