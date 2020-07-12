@@ -121,7 +121,21 @@ INSERT INTO `{$tableName}` (`store_id`, `created_at`, `updated_at`, `type`, `nam
 0 | Two storey apartment
 0 | Two storey house
 0 | Condo',
+    '0',
+    '0',
     '1',
+    '',
+    ''
+    ),
+    (
+    '{$defaultStoreId}',
+    '{$date->format('Y-m-d H:i:s')}',
+    '{$date->format('Y-m-d H:i:s')}',
+    'radio',
+    'Type of wall where the air-conditioner will be placed',
+    '0 | Outdoors
+0 | Indoors',
+    '0',
     '0',
     '1',
     '',
@@ -137,7 +151,7 @@ INSERT INTO `{$tableName}` (`store_id`, `created_at`, `updated_at`, `type`, `nam
     '1',
     '5',
     '1',
-    '',
+    'type the length in feet, e.g 15',
     ''
     ),
     (
@@ -150,7 +164,7 @@ INSERT INTO `{$tableName}` (`store_id`, `created_at`, `updated_at`, `type`, `nam
     '1',
     '0',
     '1',
-    '',
+    'type the length in feet, e.g 15',
     ''
     ),
     (
@@ -163,7 +177,7 @@ INSERT INTO `{$tableName}` (`store_id`, `created_at`, `updated_at`, `type`, `nam
     '1',
     '5',
     '0',
-    '',
+    'type the length in feet, e.g 15',
     ''
     ),
     (

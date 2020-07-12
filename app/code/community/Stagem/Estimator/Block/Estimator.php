@@ -19,7 +19,7 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
 
     protected $data = [
         'categories' => [],
-        'brands' => [],
+        'manufacturers' => [],
         'configurables' => [],
         'products' => [],
         'addons' => [],
@@ -46,6 +46,34 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
         return Mage::getUrl('estimator/online/create');
     }
 
+    
+    public function getMediaUrl($path)
+    {
+        $url = null;
+        if (!empty($path)) {
+            $url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . $path;
+        }
+
+        return $url;
+    }
+
+    /**
+     * Retrieve thumbnail image URL
+     *
+     * @param $category
+     * @return string
+     */
+    public function getCategoryThumbnailImageUrl($category)
+    {
+
+        $url = null;
+        if ($image = $category->getThumbnail()) {
+            $url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA) . 'catalog/category/' . $image;
+        }
+
+        return $url;
+    }
+
     public function generateData()
     {
         foreach ($this->getCategories() as $category) {
@@ -53,6 +81,7 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
                 'id' => $category->getId(),
                 'value' => $category->getId(),
                 'label' => $category->getName(),
+                'image' => $this->getCategoryThumbnailImageUrl($category),
             ];
 
             $brands = [];
@@ -64,7 +93,7 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
                     'label' => $configurable->getName(),
                 ];
 
-                $this->data['brands'][$configurable->getManufacturer()] = [
+                $this->data['manufacturers'][$configurable->getManufacturer()] = [
                     'id' => $configurable->getManufacturer(),
                     'categoryId' => $category->getId(),
                     'value' => $configurable->getManufacturer(),
@@ -76,11 +105,10 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
                         'id' => $simple->getId(),
                         'modelId' => $configurable->getId(),
                         'value' => $simple->getId(),
-                        'label' => $simple->getName(),
+                        'label' => $simple->getAttributeText('cooling_capacity'), // @TODO Generate label based on the pattern from System config
                     ];
                 }
             }
-            $this->data['brands'] = array_values($this->data['brands']);
         }
     }
 
@@ -103,6 +131,7 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
             // Add base attributes
             $childrenCollection->addAttributeToSelect('url_key')
                 ->addAttributeToSelect('name')
+                ->addAttributeToSelect('thumbnail')
                 ->addAttributeToSelect('all_children')
                 ->addAttributeToSelect('is_anchor')
                 ->setOrder('position', Varien_Db_Select::SQL_ASC)
@@ -135,6 +164,19 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
         return $children->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes());
     }
 
+    /**
+     * @return Bc_Manufacturer_Model_Mysql4_Manufacturer_Collection
+     */
+    public function getManufacturers()
+    {
+        $collection = Mage::getModel('manufacturer/manufacturer')
+            ->getCollection()
+            ->addFieldToFilter('status', 1)
+        ;
+
+        return $collection;
+    }
+
     public function categoriesToJson()
     {
         return Mage::helper('core')->jsonEncode($this->data['categories']);
@@ -142,7 +184,16 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
 
     public function manufacturersToJson()
     {
-        return Mage::helper('core')->jsonEncode($this->data['brands']);
+        $manufacturers = $this->getManufacturers();
+        /** @var Bc_Manufacturer_Model_Manufacturer $manufacturer */
+        foreach ($manufacturers as $id => $manufacturer) {
+            $option = & $this->data['manufacturers'][$manufacturer->getOptionId()];
+
+            $option['logo'] = $this->getMedaiUrl($manufacturer->getLogoWebPath());
+            $option['general_image'] = $this->getMedaiUrl($manufacturer->getGeneralImage());
+        }
+
+        return Mage::helper('core')->jsonEncode(array_values($this->data['manufacturers']));
     }
 
     public function configurablesToJson()

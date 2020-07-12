@@ -22,6 +22,12 @@ class Stagem_Estimator_Helper_Estimator extends Mage_Core_Helper_Abstract
         'files' => 'files',
     ];
 
+    protected $filters = [
+        'phone'=> [
+            ['self', 'filterNumber']
+        ]
+    ];
+
     /**
      * @param $data
      *
@@ -44,11 +50,14 @@ class Stagem_Estimator_Helper_Estimator extends Mage_Core_Helper_Abstract
                 $estimation->setData($dbField, $value);
             }
         }
-
         $estimation->save();
 
         return $estimation;
     }
 
+    public function filterNumber($value)
+    {
+        return preg_replace('/\D/', '', $value);
+    }
 
 }

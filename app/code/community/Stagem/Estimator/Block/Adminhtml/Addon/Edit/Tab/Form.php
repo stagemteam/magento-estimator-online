@@ -76,9 +76,24 @@ class Stagem_Estimator_Block_Adminhtml_Addon_Edit_Tab_Form extends Mage_Adminhtm
             'title'    => $this->__('Price Condition'),
             'required' => false,
             'style'    => 'width: 100%; height: 200px;',
-            'after_element_html' => '<small>
-<strong>input (default)</strong><br/>
-Price condition: :pricePerUnit
+            'after_element_html' => <<<HTML
+<small>
+Price condition formats: 
+<ul>
+    <li><i>(empty)</i></li>
+    <li><strong>%price</strong> -> 10</li>
+    <li><strong>%price | feet</strong> -> 10 | ft</li>
+    <li><strong>%price | %from piece = %to feet</strong> -> 10 | 1 pc = 3 ft</li>
+</ul>
+NOTE: percentage (%) sign at the beginning of %price etc. means you should place <b>number</b> there. 
+<br/>
+<br/>
+
+<strong>Input</strong><br/>
+User see simple input element on frontend and type value (number).<br/>
+If you write just <b>%price</b>
+<br/>
+
 <br/>
 <br/>
 
@@ -122,7 +137,8 @@ input-select
 Example:
 USD | 1 = 26
 EUR | 1 = 29
-</small>',
+</small>
+HTML
         ));
 
 		$fieldset->addField('free', 'text', array(
