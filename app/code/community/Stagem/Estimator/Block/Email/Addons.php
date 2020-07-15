@@ -18,6 +18,11 @@
  */
 class Stagem_Estimator_Block_Email_Addons extends Mage_Core_Block_Template
 {
+    public function getBlockLabel()
+    {
+        return $this->getData('block_label');    
+    }
+    
     public function getValue($index)
     {
         $addon = $this->getItems()->getItemById($index);

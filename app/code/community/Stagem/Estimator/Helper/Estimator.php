@@ -23,9 +23,12 @@ class Stagem_Estimator_Helper_Estimator extends Mage_Core_Helper_Abstract
     ];
 
     protected $filters = [
-        'phone'=> [
-            ['self', 'filterNumber']
-        ]
+        //'phone'=> [
+        //    ['self', 'filterNumber']
+        //],
+        'addons'=> [
+            ['self', 'filterAddons']
+        ],
     ];
 
     /**
@@ -43,9 +46,15 @@ class Stagem_Estimator_Helper_Estimator extends Mage_Core_Helper_Abstract
         $formFields = array_flip($this->fieldsMap);
         foreach ($formFields as $formField => $dbField) {
             if (isset($data[$formField])) {
-                $value = is_array($data[$formField])
-                    ? Mage::helper('core')->jsonEncode($data[$formField])
-                    : $data[$formField];
+
+                $value = $data[$formField];
+                if (isset($this->filters[$formField])) {
+                    $value = $this->doFilter($this->filters[$formField], $value);
+                }
+
+                $value = is_array($value)
+                    ? Mage::helper('core')->jsonEncode($value)
+                    : $value;
 
                 $estimation->setData($dbField, $value);
             }
@@ -60,4 +69,26 @@ class Stagem_Estimator_Helper_Estimator extends Mage_Core_Helper_Abstract
         return preg_replace('/\D/', '', $value);
     }
 
+    public function filterAddons($addons)
+    {
+        foreach ($addons as $index => $addon) {
+            if ('' === $addon) {
+                unset($addons[$index]);
+            }
+        }
+
+        return $addons;
+    }
+
+    protected function doFilter($filters, $value)
+    {
+        foreach ($filters as & $filter) {
+            if ('self' === $filter[0]) {
+                $filter[0] = $this;
+            }
+            $value = call_user_func($filter, $value);
+        }
+
+        return $value;
+    }
 }

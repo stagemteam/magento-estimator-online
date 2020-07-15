@@ -70,77 +70,6 @@ class Stagem_Estimator_Block_Adminhtml_Addon_Edit_Tab_Form extends Mage_Adminhtm
 		#	'options'   => Mage::getModel('Stagem_Estimator_Model_System_Config_Context')->toOptionArray(),
 		#));
 
-        $fieldset->addField('price_condition', 'textarea', array(
-            'name'     => 'price_condition',
-            'label'    => $this->__('Price Condition'),
-            'title'    => $this->__('Price Condition'),
-            'required' => false,
-            'style'    => 'width: 100%; height: 200px;',
-            'after_element_html' => <<<HTML
-<small>
-Price condition formats: 
-<ul>
-    <li><i>(empty)</i></li>
-    <li><strong>%price</strong> -> 10</li>
-    <li><strong>%price | feet</strong> -> 10 | ft</li>
-    <li><strong>%price | %from piece = %to feet</strong> -> 10 | 1 pc = 3 ft</li>
-</ul>
-NOTE: percentage (%) sign at the beginning of %price etc. means you should place <b>number</b> there. 
-<br/>
-<br/>
-
-<strong>Input</strong><br/>
-User see simple input element on frontend and type value (number).<br/>
-If you write just <b>%price</b>
-<br/>
-
-<br/>
-<br/>
-
-Input (з кореляцією) 
-----
-**Rule Name: ** Ведіть довжину комунікацій
-**Type**: input
-**Price condition**: :$pricePerMeter | $meter = $feets
-Example:
-15 | 1 = 3
-**Round to a larger number**: Yes/No
-
-6 feet / 3 feet one piece = 2 pieces
-
-7 / 3 =  2,3 = 3 (заокруглюємо в більшу сторону) 
-
-----
-checkbox
-----
-**Rule Name: ** Монтаж проводиться на горищі? 
-**Type**: checkbox
-**Price condition**: :$price
-
-----
-select/checkbox/radiobutton
-----
-**Rule Name: ** Введіть тип будинку 
-**Type**: select/checkbox/radiobutton
-**Price condition**: $name: $price
-Example:
-Бунгало: 100
-2-поверховий: 200
-
-
-----
-input-select
-----
-**Rule Name: ** Введіть суму в UAH і виберіть валюту покупки 
-**Type**: input/select
-**Price condition**: $name: | $from = $to
-Example:
-USD | 1 = 26
-EUR | 1 = 29
-</small>
-HTML
-        ));
-
 		$fieldset->addField('free', 'text', array(
 			'label'     => $this->__('Free amount of units'),
 			'name'      => 'round_up',
@@ -203,27 +132,100 @@ HTML
             'after_element_html' => '<small>Higher priority means the addon is printed first. By default, the first attached addon is read.</small>',
 		));
 
-		$fieldset->addField('created_at', 'date', array(
-			'label'    => $this->__('Created at'),
-			'name'     => 'created_at',
-			'required' => false,
-			'readonly' => true,
-			'disabled' => true,
-			'format'   => Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM),
-			'time'     => true,
-		));
+        $fieldset->addField('price_condition', 'textarea', array(
+            'name'     => 'price_condition',
+            'label'    => $this->__('Price Condition'),
+            'title'    => $this->__('Price Condition'),
+            'required' => false,
+            'style'    => 'width: 100%; height: 200px;',
+            'after_element_html' => <<<HTML
+<small>
+<h3>Price Condition formats</h3> 
 
-		$fieldset->addField('updated_at', 'date', array(
-			'label'    => $this->__('Updated at'),
-			'name'     => 'updated_at',
-			'required' => false,
-			'readonly' => true,
-			'disabled' => false,
-			'format'   => Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM),
-			'time'     => true,
-		));
+NOTE: percentage (%) sign at the beginning of <i>%price</i>, <i>%from</i> etc. means you should place <b>number</b> there. 
+<br/>
+<br/>
 
-		// this must be after fieldset declaration
+<h5><i>(empty)</i></h5>
+If you leave price condition empty, a user will see <i>Variable</i> value in the calculation, 
+that means a addon cannot be calculated automatically and requires human participation.
+<br/>
+<br/>
+
+<h5><strong>%price</strong></h5>
+If you write just <b>%price</b> in price condition, the value entered by a user will be multiplied by <b>%price</b> value.
+<br/>
+Example: %price = 10. The user enters <i>6</i> in the input field on the frontend part, 
+then the formula will have the next format: 6 * 10 = 60.
+<br/>
+He will see <i>60</i> as the result of calculation. 
+<br/>
+<br/>
+
+<h5><strong>%price | feet</strong></h5>
+If you write <b>%price | feet</b> in price condition, this will work exectly the same as explanation for the <b>%price</b>,
+except a user will see a unit of measurement in the calculation.
+<br/>
+Example: 10 | feet. The user enters <i>6</i> in the input field on the frontend part.
+<br/>
+He will see <i>6 feet = 60</i> as the result of calculation.
+<br/>
+<br/>
+
+<h5><strong>%price | %from piece = %to feet</strong></h5>
+If you write <b>%price | %from piece = %to feet</b> in price condition, 
+this mean you want to convert a value entered by a user <i>%from</i> one unit <i>%to</i> another.
+<br/>
+Example: 10 | 1 piece = 4 feet. The user enters <i>6</i> in the input field on the frontend part,
+then the formula will have the next format: (6 / 4) * 10 = 15.
+<br/>
+He will see <i>6 feet = 15</i> as the result of calculation.
+<br/>
+NOTE: If you enable <i>Round Up</i> option, then the result of (6 / 4) = 1.5 will be converted to higher number 2,
+and final the result will be 20.
+<br/>
+Example: 1 | 1 USD = 25 UAH. The user enters <i>60</i> in the input field on the frontend part,
+then the formula will have the next format: (60 / 25) * 1 = 2.4.
+<br/>
+<br/>
+<br/>
+
+
+<h3>Multiple Types</h3>
+Types <b>select/checkbox/radio</b> can have multiple price conditions. Each condition should be placed at a new line.
+<br/>
+Example:
+<br/>
+0 | Bungalow<br/>
+0 | Two storey apartment<br/>
+0 | Two storey house<br/>
+0 | Condo<br/>
+
+</small>
+HTML
+        ));
+
+        $fieldset->addField('created_at', 'date', array(
+            'label'    => $this->__('Created at'),
+            'name'     => 'created_at',
+            'required' => false,
+            'readonly' => true,
+            'disabled' => true,
+            'format'   => Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM),
+            'time'     => true,
+        ));
+
+        $fieldset->addField('updated_at', 'date', array(
+            'label'    => $this->__('Updated at'),
+            'name'     => 'updated_at',
+            'required' => false,
+            'readonly' => true,
+            'disabled' => false,
+            'format'   => Mage::app()->getLocale()->getDateTimeFormat(Mage_Core_Model_Locale::FORMAT_TYPE_MEDIUM),
+            'time'     => true,
+        ));
+
+        // this must be after fieldset declaration
         if ($data = Mage::getSingleton('adminhtml/session')->getFormData()) {
             $form->setValues($data);
         } else {

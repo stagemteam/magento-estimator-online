@@ -121,11 +121,24 @@ INSERT INTO `{$tableName}` (`store_id`, `created_at`, `updated_at`, `type`, `nam
 0 | Two storey apartment
 0 | Two storey house
 0 | Condo',
-    '0',
-    '0',
-    '1',
-    '',
-    ''
+    '0', -- round_up
+    '0', -- free
+    '1', -- is_active  
+    '', -- placeholder
+    '' -- info_message
+    ),
+    (
+    '{$defaultStoreId}',
+    '{$date->format('Y-m-d H:i:s')}',
+    '{$date->format('Y-m-d H:i:s')}',
+    'date',
+    'Which time is suite for you for installation',
+    '0', -- price_condition
+    '0', -- round_up
+    '0', -- free
+    '1', -- is_active  
+    '', -- placeholder
+    '' -- info_message
     ),
     (
     '{$defaultStoreId}',

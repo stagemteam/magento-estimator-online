@@ -1,6 +1,50 @@
 <?php
 /** @var Stagem_Estimator_Block_Email_Addons $this */
 ?>
+
+<?php if (!count($this->getItems())) : ?>
+	<?php return null; ?>
+<?php endif; ?>
+
+<?php if ($blockLabel = trim($this->getBlockLabel())) : ?>
+<!--[if (gte mso 9)|(IE)]>
+<table width="600" align="center">
+	<tr>
+		<td>
+<![endif]-->
+<table class="outer" align="center" style="Margin: 0 auto; border-spacing: 0; color: #3d3d3d; font-family: sans-serif; max-width: 600px; width: 100%; background: #ffffff;">
+
+	<tr>
+		<td class="one-column" style="padding: 0;">
+			<table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
+				<tr>
+					<td class="inner contents" style="padding: 20px 30px; text-align: center; width: 100%;">
+						<table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
+							<tr>
+								<td width="" height="20" cellpadding="0" cellspacing="0" border="0" style="height: 20px; vertical-align: middle; font-size: 20px; line-height: 20px; margin: 0px; padding: 0px; border-collapse: collapse; border-spacing: 0; border: 0 none;">&nbsp;</td>
+							</tr>
+							<tr>
+								<td class="inner contents" style="text-align: left; width: 100%;">
+									<p class="h1" style="Margin: 0; color: #3d3d3d; font-size: 24px; font-weight: noremal; line-height: 140%; text-align: left; letter-spacing: 0.05em;">
+                                        <?= $this->__($blockLabel) ?>
+									</p>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+
+</table>
+<!--[if (gte mso 9)|(IE)]>
+</td>
+</tr>
+</table>
+<![endif]-->
+<?php endif; ?>
+
 <!--[if (gte mso 9)|(IE)]>
 <table width="600" align="center">
     <tr>
