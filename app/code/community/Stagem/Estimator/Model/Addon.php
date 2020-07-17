@@ -13,6 +13,7 @@ class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
     // @TODO Move it to config.xml and make dynamic
     const TYPE_TEXT = 'text';
     const TYPE_NUMBER = 'number';
+    const TYPE_DATE = 'date';
     const TYPE_CHECKBOX = 'checkbox';
     const TYPE_RADIO = 'radio';
     const TYPE_SELECT = 'select';
@@ -31,6 +32,7 @@ class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
         return in_array($this->getType(), [
             Stagem_Estimator_Model_Addon::TYPE_TEXT,
             Stagem_Estimator_Model_Addon::TYPE_NUMBER,
+            Stagem_Estimator_Model_Addon::TYPE_DATE,
             Stagem_Estimator_Model_Addon::TYPE_TEXTAREA,
             Stagem_Estimator_Model_Addon::TYPE_INPUT_SELECT,
         ]);

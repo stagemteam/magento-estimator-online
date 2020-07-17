@@ -29,7 +29,7 @@ class Stagem_Estimator_Model_Estimation extends Mage_CatalogRule_Model_Rule
 
         $selectedAddons = $this->getSelectedAddons();
 
-        $total = $product->getPrice();
+        $total = $product->getFinalPrice();
         foreach ($addons as $addon) {
             $total += $addon->calculate($selectedAddons[$addon->getId()]);
         }

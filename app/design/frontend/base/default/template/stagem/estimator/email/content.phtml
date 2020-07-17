@@ -24,26 +24,20 @@
         <td class="one-column" style="padding: 0;">
             <table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
                 <tr>
-                    <td class="inner contents" style="padding: 0; text-align: center; width: 100%;">
-	                    <?php /** @var Stagem_Estimator_Model_Estimation $estimation  */ ?>
-	                    <?php $estimation = $this->getEstimation() ?>
-	                    <?php $productUrl = $estimation->getConfigurable()->getProductUrl() ?>
-	                    <?php $productFullName = $estimation->getConfigurable()->getName() . ' ' . $estimation->getProduct()->getCoolingCapacity() ?>
+                    <td class="inner contents" style="padding: 20px 30px; text-align: center; width: 100%;">
                         <table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
                             <tr>
-                                <td class="inner contents" style="padding: 10px; text-align: center; width: 100%;">
-                                    <a href="<?= $productUrl ?>" cellpadding="0" cellspacing="0" border="0" target="_blank">
-                                        <img src="<?= Mage::helper('catalog/image')->init($estimation->getConfigurable(), 'image')->resize(220, 230) ?>" width="220" height="230" alt="<?= $productFullName ?>" cellpadding="0" cellspacing="0" border="0"  style="display: block; margin: 0; Margin: 0 auto; text-aligh: center; padding: 0; border: 0 none;"/>
-                                    </a>
+                                <td class="inner contents" style="padding: 10px 30px; text-align: center; width: 100%;">
+                                    <p class="h1" style="Margin: 0; color: #3d3d3d; font-size: 24px; font-weight: noremal; line-height: 140%; text-align: center; letter-spacing: 0.05em;">
+                                        <?= $this->__('Thank you for making estimation <br>online with us!') ?>
+                                    </p>
                                 </td>
                             </tr>
                             <tr>
-                                <td align="center" class="inner contents" style="text-align: center; width: 100%;">
-                                    <a href="<?= $productUrl ?>" cellpadding="0" cellspacing="0" border="0" target="_blank" style="font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.4; color: #3d3d3d; font-weight: normal; text-align: center; -webkit-text-size: none; margin: 0; padding: 0; border: 0 none; text-decoration: none;">
-                                        <?= $estimation->getConfigurable()->getName() ?>
-                                        <br>
-                                        <b><?= $estimation->getProduct()->getCoolingCapacity() ?></b>
-                                    </a>
+                                <td class="inner contents" style="padding: 10px 30px; text-align: center; width: 100%;">
+                                    <p class="h1" style="Margin: 0; color: #8D8D8D; font-size: 14px; font-weight: noremal; line-height: 140%; text-align: center; letter-spacing: 0.05em;">
+                                        <i><?= $this->getEstimation()->getCustomerValue('full_name') ?></i>, <?= $this->__('here are you price and offer') ?>
+                                    </p>
                                 </td>
                             </tr>
                         </table>
@@ -60,39 +54,46 @@
 </table>
 <![endif]-->
 
+
 <!--[if (gte mso 9)|(IE)]>
 <table width="600" align="center">
-    <tr>
-        <td>
+	<tr>
+		<td>
 <![endif]-->
 <table class="outer" align="center" style="Margin: 0 auto; border-spacing: 0; color: #3d3d3d; font-family: sans-serif; max-width: 600px; width: 100%; background: #ffffff;">
 
-    <tr>
-        <td class="one-column" style="padding: 0;">
-            <table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
-                <tr>
-                    <td class="inner contents" style="padding: 20px 30px; text-align: center; width: 100%;">
-                        <table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
-                            <tr>
-                                <td class="inner contents" style="padding: 10px 30px; text-align: center; width: 100%;">
-                                    <p class="h1" style="Margin: 0; color: #3d3d3d; font-size: 24px; font-weight: noremal; line-height: 140%; text-align: center; letter-spacing: 0.05em;">
-                                        <?= $this->__('Thank you for making estimation <br>online with us!') ?>
-                                    </p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="inner contents" style="padding: 10px 30px; text-align: center; width: 100%;">
-                                    <p class="h1" style="Margin: 0; color: #8D8D8D; font-size: 14px; font-weight: noremal; line-height: 140%; text-align: center; letter-spacing: 0.05em;">
-                                        <i><?= $estimation->getCustomerValue('full_name') ?></i>, <?= $this->__('here are you price and offer') ?>
-                                    </p>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
+	<tr>
+		<td class="one-column" style="padding: 0;">
+			<table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
+				<tr>
+					<td class="inner contents" style="padding: 0; text-align: center; width: 100%;">
+                        <?php /** @var Stagem_Estimator_Model_Estimation $estimation  */ ?>
+                        <?php $estimation = $this->getEstimation() ?>
+                        <?php $productUrl = $estimation->getConfigurable()->getProductUrl() ?>
+                        <?php $productFullName = $estimation->getConfigurable()->getName() . ' ' . $estimation->getProduct()->getAttributeText('cooling_capacity') ?>
+						<table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
+							<tr>
+								<td class="inner contents" style="padding: 10px; text-align: center; width: 100%;">
+									<a href="<?= $productUrl ?>" cellpadding="0" cellspacing="0" border="0" target="_blank">
+										<img src="<?= Mage::helper('catalog/image')->init($estimation->getConfigurable(), 'image')->resize(220, 230) ?>" width="220" height="230" alt="<?= $productFullName ?>" cellpadding="0" cellspacing="0" border="0"  style="display: block; margin: 0; Margin: 0 auto; text-aligh: center; padding: 0; border: 0 none;"/>
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td align="center" class="inner contents" style="text-align: center; width: 100%;">
+									<a href="<?= $productUrl ?>" cellpadding="0" cellspacing="0" border="0" target="_blank" style="font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.4; color: #3d3d3d; font-weight: normal; text-align: center; -webkit-text-size: none; margin: 0; padding: 0; border: 0 none; text-decoration: none;">
+                                        <?= $estimation->getConfigurable()->getName() ?>
+										<br>
+										<b><?= $estimation->getProduct()->getAttributeText('cooling_capacity') ?></b>
+									</a>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
 
 </table>
 <!--[if (gte mso 9)|(IE)]>
@@ -108,14 +109,23 @@
         <td>
 <![endif]-->
 <table class="outer" align="center" style="Margin: 0 auto; background: #ffffff; border-spacing: 0; color: #3d3d3d; font-family: sans-serif; max-width: 600px; width: 100%;">
-
+	<tr>
+		<td width="" height="30" cellpadding="0" cellspacing="0" border="0" style=" height: 30px; vertical-align: middle; font-size: 30px; line-height: 30px; margin: 0px; padding: 0px; border-collapse: collapse; border-spacing: 0; border: 0 none;">&nbsp;</td>
+	</tr>
+	<tr>
+		<td class="full-width-image" style="padding: 0; background: #ffffff;">
+			<img src="<?= $this->getSkinUrl('stagem/estimator/img/line-e.png') ?>" width="100%" height="21" alt="#" border="0" style="display: block; border: 0 none;"/>
+		</td>
+	</tr>
     <tr>
         <td class="two-column header" style="font-size: 0; padding: 0; vertical-align: middle; text-align: center;">
             <!--[if (gte mso 9)|(IE)]>
             <table width="100%">
                 <tr>
-                    <td width="50%" valign="top">
+                    <td width="100%" valign="top">
             <![endif]-->
+
+            <?php /*
             <div class="column" style="display: inline-block; max-width: 30%; vertical-align: top; width: 100%;">
                 <table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
                     <tr>
@@ -123,7 +133,7 @@
                             <table class="contents" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif; font-size: 14px; text-align: left; width: 100%;">
                                 <tr>
                                     <td class="text text__head center" style="font-size: 11px; font-weight: bold; line-height: 16px; padding: 0; text-align: left !important;">
-                                        <p style="font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 24px; line-height: 1.42; font-weight: normal; border: 0 none; color: #3d3d3d;text-align: left; vertical-align: top; margin: 0; padding: 0;"><?//= $this->__('Total') ?></p>
+                                        <p style="font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 24px; line-height: 1.42; font-weight: normal; border: 0 none; color: #3d3d3d;text-align: left; vertical-align: top; margin: 0; padding: 0;"><?//= $this->__('Total') ?>&nbsp;</p>
                                     </td>
                                 </tr>
                             </table>
@@ -134,7 +144,9 @@
             <!--[if (gte mso 9)|(IE)]>
             </td><td width="50%" valign="top">
             <![endif]-->
-            <div class="column" style="display: inline-block; max-width: 70%; vertical-align: top; width: 100%;">
+            */ ?>
+
+            <div class="column" style="display: inline-block; max-width: 100%; vertical-align: top; width: 100%;">
                 <table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
                     <tr>
                         <td class="inner" style="padding: 20px 30px;">
@@ -152,11 +164,6 @@
             <![endif]-->
         </td>
     </tr>
-    <tr>
-        <td class="full-width-image" style="padding: 0; background: #ffffff;">
-            <img src="<?= $this->getSkinUrl('stagem/estimator/img/line-e.png') ?>" width="100%" height="21" alt="#" border="0" style="display: block; border: 0 none;"/>
-        </td>
-    </tr>
 </table>
 <!--[if (gte mso 9)|(IE)]>
 </td>
@@ -167,45 +174,25 @@
 
 <!--[if (gte mso 9)|(IE)]>
 <table width="600" align="center">
-    <tr>
-        <td>
+	<tr>
+		<td>
 <![endif]-->
 <table class="outer" align="center" style="Margin: 0 auto; border-spacing: 0; color: #3d3d3d; font-family: sans-serif; max-width: 600px; width: 100%; background: #ffffff;">
 
-    <tr>
-        <td class="one-column" style="padding: 0;">
-            <table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
-                <tr>
-                    <td class="inner contents" style="padding: 0; text-align: center; width: 100%;">
-                        <table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
-                            <tr>
-                                <td class="inner contents" style="padding: 10px; text-align: center; width: 100%;">
-                                    <a href="<?= Mage::getUrl('estimator/online/ready', ['hash' => $estimation->getHash ()]) ?>" target="_blank" style="text-decoration:none !important;-ms-text-size-adjust:none;font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif;font-size:18px;color:#FFFFFF;border-style:solid;border-color:#20B5BD;border-width:20px 100px;display:inline-block;background:#20B5BD;border-radius:6px;font-weight:normal;font-style:normal;line-height:22px;width:auto;text-align:center;" rel="noreferrer noopener">
-                                        <?= $this->__('Ready to Install') ?>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td align="center" class="inner contents" style="text-align: center; width: 100%;">
-                                    <a align="center" href="<?= Mage::getUrl('estimator/online/modify', ['hash' => $estimation->getHash()]) ?>" cellpadding="0" cellspacing="0" border="0" target="_blank" style="font-family:  Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 14px; line-height: 30px; color: #3d3d3d; font-weight: normal; text-align: center; -webkit-text-size: none; margin: 0; padding: 0; border: 0 none;">
-										<?= $this->__('Modify Estimation') ?>
-                                    </a>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="" height="20" cellpadding="0" cellspacing="0" border="0" style="height: 20px; vertical-align: middle; font-size: 20px; line-height: 20px; margin: 0px; padding: 0px; border-collapse: collapse; border-spacing: 0; border: 0 none;">&nbsp;</td>
-                </tr>
-                <tr>
-                    <td class="full-width-image" style="padding: 0; background: #ffffff;">
-                        <img src="<?= $this->getSkinUrl('stagem/estimator/img/line-r.png') ?>" width="100%" height="21" alt="#" border="0" style="display: block; border: 0 none;"/>
-                    </td>
-                </tr>
-            </table>
-        </td>
-    </tr>
+	<tr>
+		<td class="one-column" style="padding: 0;">
+			<table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
+				<tr>
+					<td width="" height="20" cellpadding="0" cellspacing="0" border="0" style="width: px; height: 20px; vertical-align: middle; font-size: 20px; line-height: 20px; margin: 0px; padding: 0px; border-collapse: collapse; border-spacing: 0; border: 0 none;">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="full-width-image" style="padding: 0; background: #ffffff;">
+						<img src="<?= $this->getSkinUrl('stagem/estimator/img/line-r.png') ?>" width="100%" height="21" alt="#" border="0" style="display: block; border: 0 none;"/>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
 
 </table>
 <!--[if (gte mso 9)|(IE)]>
@@ -214,24 +201,167 @@
 </table>
 <![endif]-->
 
-<?php echo $this->getLayout()
-    ->createBlock('stagem_estimator/email_addons')
-    ->setArea('frontend')
-    ->setData('block_label', 'All details')
-    ->setData('estimation', $this->getEstimation())
-    ->setData('items', $this->getEstimation()->getAddons())
-    ->setTemplate('stagem/estimator/email/list.phtml')
-    ->toHtml()
-?>
 
-<?php if ($this->getEstimation()->getData('is_ready_to_install')) : ?>
-	<!-- Customer Info -->
+
+<?php if (count($addons = $this->getEstimation()->getAddons())) : ?>
+	<!--[if (gte mso 9)|(IE)]>
+	<table width="600" align="center">
+		<tr>
+			<td>
+	<![endif]-->
+	<table class="outer" align="center" style="Margin: 0 auto; border-spacing: 0; color: #3d3d3d; font-family: sans-serif; max-width: 600px; width: 100%; background: #ffffff;">
+		<tr>
+			<td class="one-column" style="padding: 0;">
+				<table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
+					<tr>
+						<td class="inner contents" style="padding: 20px 30px 0; text-align: center; width: 100%;">
+							<table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
+								<?php /*<tr>
+									<td width="" height="20" cellpadding="0" cellspacing="0" border="0" style="height: 20px; vertical-align: middle; font-size: 20px; line-height: 20px; margin: 0px; padding: 0px; border-collapse: collapse; border-spacing: 0; border: 0 none;">&nbsp;</td>
+								</tr>*/ ?>
+								<tr>
+									<td class="inner contents" style="text-align: left; width: 100%;">
+										<p class="h1" style="Margin: 0; color: #3d3d3d; font-size: 24px; font-weight: noremal; line-height: 140%; text-align: left; letter-spacing: 0.05em;">
+                                            <?= $this->__('All details') ?>
+										</p>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+
+	</table>
+	<!--[if (gte mso 9)|(IE)]>
+	</td>
+	</tr>
+	</table>
+	<![endif]-->
+
+
+	<!--[if (gte mso 9)|(IE)]>
+	<table width="600" align="center">
+		<tr>
+			<td>
+	<![endif]-->
+	<table class="outer" align="center" style="Margin: 0 auto; border-spacing: 0; color: #3d3d3d; font-family: sans-serif; max-width: 600px; width: 100%; background: #ffffff;">
+		<tr>
+			<td class="one-column" style="padding: 0;">
+				<table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
+					<tr>
+						<td class="inner contents" style="padding: 20px 30px; text-align: center; width: 100%;">
+							<table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
+								<tr>
+									<td class="inner contents" style="text-align: right; width: 100%;">
+										<p class="h1" style="Margin: 0; color: #3d3d3d; font-size: 16px; font-weight: noremal; line-height: 140%; text-align: right; letter-spacing: 0.05em;">
+                                            <?= $this->__('Base installation') ?>: <?= Mage::helper('core')->currency($estimation->getProduct()->getFinalPrice(), true, false) ?> + <?= $this->__('Tax') ?>
+										</p>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+
+	</table>
+	<!--[if (gte mso 9)|(IE)]>
+	</td>
+	</tr>
+	</table>
+	<![endif]-->
+
+
 	<?php echo $this->getLayout()
-	    ->createBlock('stagem_estimator/email_customer')
+	    ->createBlock('stagem_estimator/email_addons')
 	    ->setArea('frontend')
-		->setData('block_label', 'Customer Info')
-	    ->setData('items', $this->getEstimation()->getCustomer())
+	    ->setData('estimation', $this->getEstimation())
+	    ->setData('items', $addons)
 	    ->setTemplate('stagem/estimator/email/list.phtml')
 	    ->toHtml()
 	?>
 <?php endif; ?>
+
+<!--[if (gte mso 9)|(IE)]>
+<table width="600" align="center">
+	<tr>
+		<td>
+<![endif]-->
+<table class="outer" align="center" style="Margin: 0 auto; border-spacing: 0; color: #3d3d3d; font-family: sans-serif; max-width: 600px; width: 100%; background: #ffffff;">
+
+	<tr>
+		<td class="one-column" style="padding: 0;">
+			<table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
+				<tr>
+					<td class="inner contents" style="padding: 0; text-align: center; width: 100%;">
+						<table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
+							<tr>
+								<td class="inner contents" style="padding: 10px; text-align: center; width: 100%;">
+									<a href="<?= Mage::getUrl('estimator/online/ready', ['hash' => $estimation->getHash ()]) ?>" target="_blank" style="text-decoration:none !important;-ms-text-size-adjust:none;font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif;font-size:18px;color:#FFFFFF;border-style:solid;border-color:#20B5BD;border-width:20px 100px;display:inline-block;background:#20B5BD;border-radius:6px;font-weight:normal;font-style:normal;line-height:22px;width:auto;text-align:center;" rel="noreferrer noopener">
+                                        <?= $this->__('Ready to Install') ?>
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td align="center" class="inner contents" style="text-align: center; width: 100%;">
+									<a align="center" href="<?= Mage::getUrl('estimator/online/modify', ['hash' => $estimation->getHash()]) ?>" cellpadding="0" cellspacing="0" border="0" target="_blank" style="font-family:  Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 14px; line-height: 30px; color: #3d3d3d; font-weight: normal; text-align: center; -webkit-text-size: none; margin: 0; padding: 0; border: 0 none;">
+                                        <?= $this->__('Modify Estimation') ?>
+									</a>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr>
+					<td width="" height="20" cellpadding="0" cellspacing="0" border="0" style="height: 20px; vertical-align: middle; font-size: 20px; line-height: 20px; margin: 0px; padding: 0px; border-collapse: collapse; border-spacing: 0; border: 0 none;">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="full-width-image" style="padding: 0; background: #ffffff;">
+						<img src="<?= $this->getSkinUrl('stagem/estimator/img/line-r.png') ?>" width="100%" height="21" alt="#" border="0" style="display: block; border: 0 none;"/>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+
+</table>
+<!--[if (gte mso 9)|(IE)]>
+</td>
+</tr>
+</table>
+<![endif]-->
+
+
+<!--[if (gte mso 9)|(IE)]>
+<table width="600" align="center">
+	<tr>
+		<td>
+<![endif]-->
+<table class="outer" align="center" style="Margin: 0 auto; border-spacing: 0; color: #3d3d3d; font-family: sans-serif; max-width: 600px; width: 100%; background: #ffffff;">
+
+	<tr>
+		<td class="one-column" style="padding: 0;">
+			<table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
+				<tr>
+					<td class="inner contents" style="padding: 20px 30px; text-align: center; width: 100%;">
+						<p class="h1" style="Margin: 0; color: #1f3266; font-size: 18px; font-weight: bold; line-height: 140%; text-align: center; letter-spacing: 0.05em;">
+							<?= $this->__('Live better, make your life comfy and happy with AirGreen!') ?>
+						</p>
+					</td>
+				</tr>
+				<tr>
+					<td width="" height="40" cellpadding="0" cellspacing="0" border="0" style="width: px; height: 40px; vertical-align: middle; font-size: 40px; line-height: 40px; margin: 0px; padding: 0px; border-collapse: collapse; border-spacing: 0; border: 0 none;">&nbsp;</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+
+</table>
+<!--[if (gte mso 9)|(IE)]>
+</td>
+</tr>
+</table>
+<![endif]-->

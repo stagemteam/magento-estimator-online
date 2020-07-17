@@ -13,19 +13,39 @@
  * @license https://opensource.org/licenses/MIT The MIT License (MIT)
  */
 ?>
+
 <table class="contents" style="border-spacing: 0; color: #979797; font-family: sans-serif; font-size: 14px; text-align: left; width: 100%;">
-    <tr>
-        <td class="text text__head center" style="font-size: 17px; font-weight: regular; line-height: 14px; padding: 0; padding-top: 10px; text-align: left !important;">
-            <p style="font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 14px; line-height: 1.2; font-weight: normal; border: 0 none; color: #979797;text-align: left; vertical-align: top; margin: 0; padding: 0; letter-spacing: 0.08em;">
-                <?= $this->__('Add-ons to standerd installation') ?>
-            </p>
-        </td>
-    </tr>
-    <tr>
-        <td class="text text__head center" style="font-size: 17px; font-weight: regular; line-height: 14px; padding: 0; padding-top: 10px; text-align: left !important;">
-            <p style="font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 14px; line-height: 1.2; font-weight: normal; border: 0 none; color: #979797;text-align: left; vertical-align: top; margin: 0; padding: 0;letter-spacing: 0.08em">
-                <?= $this->__('DATE') ?>: <?= (new DateTime())->format('d/m/Y') ?>
-            </p>
-        </td>
-    </tr>
+	<?php /*<tr>
+		<td class="text text__head center" style="font-size: 17px; font-weight: regular; line-height: 14px; padding: 0; padding-top: 10px; text-align: left !important;">
+			<p style="font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 14px; line-height: 1.2; font-weight: normal; border: 0 none; color: #979797;text-align: left; vertical-align: top; margin: 0; padding: 0; letter-spacing: 0.08em;">Add-ons to standerd<br>installation</p>
+		</td>
+	</tr>*/ ?>
+	<tr>
+		<td class="text text__head center" style="font-size: 14px; font-weight: regular; line-height: 14px; padding: 0; padding-top: 10px; text-align: left !important;">
+			<p style="font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 14px; line-height: 1.2; font-weight: normal; border: 0 none; color: #979797;text-align: left; vertical-align: top; margin: 0; padding: 0; letter-spacing: 0.08em;">
+                <i><?= $this->__('Sent date') ?>: <?= (new DateTime())->format('d/m/Y') ?></i>
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td width="" height="10" cellpadding="0" cellspacing="0" border="0" style="width: px; height: 10px; vertical-align: middle; font-size: 10px; line-height: 10px; margin: 0px; padding: 0px; border-collapse: collapse; border-spacing: 0; border: 0 none;">
+			<?php $customer = $this->getCustomer(); ?>
+			<p style="font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 14px; line-height: 1.42; font-weight: bold; border: 0 none; color: #979797;text-align: left; vertical-align: top; margin: 0; padding: 0;">
+				<?= $customer['full_name'] ?>
+			</p>
+			<p style="font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 14px; line-height: 1.42; font-weight: normal; border: 0 none; color: #979797;text-align: left; vertical-align: top; margin: 0; padding: 0;">
+                <?= $customer['address'] ?>. <?= $customer['zip'] ?>
+			</p>
+			<p style="font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 14px; line-height: 1.42; font-weight: normal; border: 0 none; color: #979797;text-align: left; vertical-align: top; margin: 0; padding: 0;">
+				<a href="mailto:<?= $customer['email'] ?>" cellpadding="0" cellspacing="0" border="0" target="_blank" style="font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.4; color: #979797; font-weight: normal; text-align: left; -webkit-text-size: none; margin: 0; padding: 0; border: 0 none; text-decoration: none">
+                    <?= $customer['email'] ?>
+				</a>
+			</p>
+			<p style="font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 14px; line-height: 1.42; font-weight: normal; border: 0 none; color: #979797;text-align: left; vertical-align: top; margin: 0; padding: 0;">
+				<a href="phone:<?= $customer['phone'] ?>" cellpadding="0" cellspacing="0" border="0" target="_blank" style="font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.4; color: #979797; font-weight: normal; text-align: left; -webkit-text-size: none; margin: 0; padding: 0; border: 0 none; text-decoration: none">
+					<?= $customer['phone'] ?>
+				</a>
+			</p>
+		</td>
+	</tr>
 </table>

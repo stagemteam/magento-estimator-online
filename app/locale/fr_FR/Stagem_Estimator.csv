@@ -1,5 +1,5 @@
 "STEP","--STEP"
-"DATE","--DATE"
+"Sent date","--Sent date"
 "Online HVAC Estimate","Estimation HVAC en ligne"
 "Ready to Install","--Ready To Install"
 "Modify Estimation","--Modify Estimation"
@@ -28,6 +28,7 @@
 "Total","--Total"
 "Tax","--Tax"
 "All details","--All details"
+"Base installation","--Base installation"
 "Customer information","--Customer information"
 "Add-ons to standerd installation","--Add-ons to standerd installation"
 "Please note that deals are subject to availabilty and its prices are subject to change.","--Please note that deals are subject to availabilty and its prices are subject to change."
@@ -35,3 +36,4 @@
 "Learn about our <a href='%s' style='%s'>Privacy Policy</a>","--Learn about our <a href='%s' style='%s'>Privacy Policy</a>"
 # Additional question
 "What type of house you have?", "--What type of house you have?"
+"Live better, make your life comfy and happy with AirGreen!", "--Live better, make your life comfy and happy with AirGreen!"

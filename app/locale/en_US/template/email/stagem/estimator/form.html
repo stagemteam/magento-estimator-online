@@ -66,7 +66,7 @@
 						<table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
 							<tr>
 								<td class="inner" style="padding: 20px 30px;">
-									{{block type='core/template' area='frontend' template='stagem/estimator/email/general_info.phtml'}}
+									{{block type='core/template' area='frontend' template='stagem/estimator/email/general_info.phtml' customer=$estimation.getCustomer()}}
 								</td>
 							</tr>
 						</table>
