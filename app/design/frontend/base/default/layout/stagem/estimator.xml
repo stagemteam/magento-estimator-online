@@ -2,7 +2,7 @@
 <layout>
     <stagem_estimator_online_handle>
         <reference name="head">
-            <action method="addItem" ifconfig="stagem_estimator/general/enabled"><type>skin_js</type><name>stagem/estimator/js/plugin/jquery.datetimepicker.full.min.js</name><params/></action>
+            <action method="addItem" ifconfig="stagem_estimator/general/enabled"><type>skin_js</type><name>stagem/estimator/js/plugin/jquery.datetimepicker.full.js</name><params/></action>
             <action method="addItem" ifconfig="stagem_estimator/general/enabled"><type>skin_css</type><name>stagem/estimator/js/plugin/jquery.datetimepicker.min.css</name><params/></action>
         </reference>
         <reference name="content">

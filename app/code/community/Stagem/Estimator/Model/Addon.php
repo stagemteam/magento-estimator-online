@@ -115,9 +115,11 @@ class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
             } elseif (isset($condition['from_unit'])) {
                 $price = $input * $condition['price'];
             } else {
-                $price = self::PRICE_VARIABLE;
+                $price = ($condition['price'] == self::PRICE_FREE)
+                    ? self::PRICE_FREE
+                    : self::PRICE_VARIABLE;
             }
-        } elseif (array_key_exists('price', $condition)) {
+        } elseif (isset($condition['price'])) {
             $price = ($condition['price'] == self::PRICE_FREE)
                 ? self::PRICE_FREE
                 : $condition['price'];

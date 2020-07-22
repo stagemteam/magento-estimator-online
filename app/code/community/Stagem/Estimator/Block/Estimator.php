@@ -40,6 +40,11 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
         //$this->setTemplate('followupemail/related.phtml');
         return $this->renderView();
     }
+  
+    public function getStoreLang()
+    {
+        return substr(Mage::getStoreConfig('general/locale/code'), 0, 2);    
+    }
     
     public function getFormUrl()
     {
@@ -189,8 +194,8 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
         foreach ($manufacturers as $id => $manufacturer) {
             $option = & $this->data['manufacturers'][$manufacturer->getOptionId()];
 
-            $option['logo'] = $this->getMedaiUrl($manufacturer->getLogoWebPath());
-            $option['general_image'] = $this->getMedaiUrl($manufacturer->getGeneralImage());
+            $option['logo'] = $this->getMediaUrl($manufacturer->getLogoWebPath());
+            $option['generalImage'] = $this->getMediaUrl($manufacturer->getGeneralImage());
         }
 
         return Mage::helper('core')->jsonEncode(array_values($this->data['manufacturers']));

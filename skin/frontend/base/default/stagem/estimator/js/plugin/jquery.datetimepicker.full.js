@@ -658,7 +658,6 @@ var datetimepickerFactory = function ($) {
 				months: locale.months,
 				monthsShort: $.map(locale.months, function(n){ return n.substring(0, 3) })
 			};
-
 		if (typeof DateFormatter === 'function') {
 			dateHelper = defaultDateHelper = new DateFormatter({
 				dateSettings: $.extend({}, dateFormatterOptionsDefault, opts)
