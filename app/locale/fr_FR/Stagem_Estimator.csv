@@ -35,6 +35,10 @@
 "Have an issue that we can help with? Email us at <a style='%s' href='mailto:%s'>%s</a>, or write to us at %s","--Have an issue that we can help with? Email us at <a style='%s' href='mailto:%s'>%s</a>, or write to us at %s"
 "Learn about our <a href='%s' style='%s'>Privacy Policy</a>","--Learn about our <a href='%s' style='%s'>Privacy Policy</a>"
 # Additional question
-"What type of house you have?", "--What type of house you have?"
+"What type of house you have", "--What type of house you have"
+"Which time is suite for you for installation", "--Which time is suite for you for installation"
+"click here to choose date and time", "--click here to choose date and time"
+"Type of wall where the air-conditioner will be placed", "--Type of wall where the air-conditioner will be placed"
+"Outdoors", "--Outdoors"
 "Live better, make your life comfy and happy with AirGreen!", "--Live better, make your life comfy and happy with AirGreen!"
 "Area To Be Cooled (square feet)", "--Area To Be Cooled (square feet)"

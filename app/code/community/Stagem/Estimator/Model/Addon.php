@@ -77,9 +77,9 @@ class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
             foreach ($conditions as $index => $condition) {
                 $value[] = [
                     'value' => $index,
-                    'label' => $condition['to_unit']
-                        ? $condition['from_unit'] . ' - ' . $condition['to_unit']
-                        : $condition['from_unit'],
+                    'label' => isset($condition['to_unit'])
+                        ? Mage::helper('stagem_estimator')->__($condition['from_unit']) . ' - ' . Mage::helper('stagem_estimator')->__($condition['to_unit'])
+                        : Mage::helper('stagem_estimator')->__($condition['from_unit']),
                 ];
             }
         }

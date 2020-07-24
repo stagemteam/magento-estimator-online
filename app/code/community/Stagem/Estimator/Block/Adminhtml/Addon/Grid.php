@@ -19,6 +19,7 @@ class Stagem_Estimator_Block_Adminhtml_Addon_Grid extends Mage_Adminhtml_Block_W
 	protected function _prepareCollection() {
 		/** @var Stagem_Estimator_Model_Resource_Addon_Collection $collection */
 		$collection = Mage::getModel('stagem_estimator/addon')->getCollection();
+
 		/*$collection->getSelect()
 			->joinLeft(array('category' => $collection->getTable('catalog/category')), 'main_table.category_id = category.entity_id', array(
 				'category.parent_id',
