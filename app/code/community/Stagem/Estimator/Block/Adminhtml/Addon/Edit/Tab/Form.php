@@ -49,18 +49,18 @@ class Stagem_Estimator_Block_Adminhtml_Addon_Edit_Tab_Form extends Mage_Adminhtm
 		));*/
 
 		$fieldset->addField('type', 'select', array(
-			'label'     => $this->__('Type'),
-			'name'      => 'type',
+            'name'      => 'type',
+            'label'     => $this->__('Type'),
 			'required'  => true,
             'values'   => Mage::getModel('stagem_estimator/system_config_type')->toOptionArray(),
 		));
 
         $fieldset->addField('name', 'text', array(
-            'label'              => $this->__('Name'),
             'name'               => 'name',
             'required'           => true,
             'style'              => 'width:100%',
             //'after_element_html' => '<small>Example: category;manufacturer</small>',
+            'label'              => $this->__('Name'),
         ));
 
 		#$fieldset->addField('context', 'select', array(
@@ -71,15 +71,16 @@ class Stagem_Estimator_Block_Adminhtml_Addon_Edit_Tab_Form extends Mage_Adminhtm
 		#));
 
 		$fieldset->addField('free', 'text', array(
-			'label'     => $this->__('Free amount of units'),
-			'name'      => 'round_up',
+            'name'      => 'free',
+            'label'     => $this->__('Free amount of units'),
             'required'  => false,
             'style'     => 'width:20%',
-		));
+            'after_element_html' => '<small>This value will be subtracted from a value entered by a user on the frontend</small>',
+        ));
 
 		$fieldset->addField('round_up', 'select', array(
-			'label'     => $this->__('Round up to higher number'),
-			'name'      => 'round_up',
+            'name'      => 'round_up',
+            'label'     => $this->__('Round up to higher number'),
 			'required'  => true,
 			'options'   => array(
 				1 => $this->__('Yes'),
@@ -88,8 +89,8 @@ class Stagem_Estimator_Block_Adminhtml_Addon_Edit_Tab_Form extends Mage_Adminhtm
 		));
 
         $fieldset->addField('is_separate', 'select', array(
-            'label'     => $this->__('Show addon in a separate block'),
             'name'      => 'is_separate',
+            'label'     => $this->__('Show addon in a separate block'),
             'required'  => false,
             'options'   => array(
                 1 => $this->__('Yes'),
@@ -98,8 +99,8 @@ class Stagem_Estimator_Block_Adminhtml_Addon_Edit_Tab_Form extends Mage_Adminhtm
         ));
 
 		$fieldset->addField('is_active', 'select', array(
-			'label'     => $this->__('Status'),
-			'name'      => 'is_active',
+            'name'      => 'is_active',
+            'label'     => $this->__('Status'),
 			'required'  => true,
 			'options'   => array(
 				1 => $this->__('Enabled'),
@@ -116,7 +117,7 @@ class Stagem_Estimator_Block_Adminhtml_Addon_Edit_Tab_Form extends Mage_Adminhtm
         ));
 
         $fieldset->addField('comment', 'textarea', array(
-            'name'     => 'Comment',
+            'name'     => 'comment',
             'label'    => $this->__('Comment'),
             'title'    => $this->__('Comment'),
             'required' => false,
@@ -125,11 +126,11 @@ class Stagem_Estimator_Block_Adminhtml_Addon_Edit_Tab_Form extends Mage_Adminhtm
         ));
 
 		$fieldset->addField('priority', 'text', array(
-			'label'     => $this->__('Priority'),
-			'name'      => 'priority',
+            'name'      => 'priority',
+            'label'     => $this->__('Priority'),
 			'required'  => false,
             'style'     => 'width:20%',
-            'after_element_html' => '<small>Higher priority means the addon is printed first. By default, the first attached addon is read.</small>',
+            'after_element_html' => '<small>Higher priority means the addon is printed first. By default, the first added addon is shown.</small>',
 		));
 
         $fieldset->addField('price_condition', 'textarea', array(
@@ -206,8 +207,8 @@ HTML
         ));
 
         $fieldset->addField('created_at', 'date', array(
-            'label'    => $this->__('Created at'),
             'name'     => 'created_at',
+            'label'    => $this->__('Created at'),
             'required' => false,
             'readonly' => true,
             'disabled' => true,
@@ -216,8 +217,8 @@ HTML
         ));
 
         $fieldset->addField('updated_at', 'date', array(
-            'label'    => $this->__('Updated at'),
             'name'     => 'updated_at',
+            'label'    => $this->__('Updated at'),
             'required' => false,
             'readonly' => true,
             'disabled' => false,

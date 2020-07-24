@@ -28,7 +28,6 @@ class Stagem_Estimator_Adminhtml_AddonController extends Mage_Adminhtml_Controll
 
         // enable conditions
         //$model->getActions()->setJsFormObject('rule_actions_fieldset');
-
         //$this->loadLayout()->_setActiveMenu('stagem_estimator');
 
 
@@ -57,15 +56,9 @@ class Stagem_Estimator_Adminhtml_AddonController extends Mage_Adminhtml_Controll
                     unset($data['stores']);
                 }
 
-				if (!$this->getRequest()->getParam('id')) {
-					$data['created_at'] = Mage::getModel('core/date')->date('Y-m-d H:i:s');
-					$data['updated_at'] = Mage::getModel('core/date')->date('Y-m-d H:i:s');
-				}
-
-                /*if (isset($data['rule']['conditions'])) {
-                    $data['conditions'] = $data['rule']['conditions'];
-                }
-                unset($data['rule']);*/
+				(!$this->getRequest()->getParam('id'))
+					? $data['created_at'] = $data['created_at'] = now()
+					: $data['updated_at'] = now();
 
                 /** @var Stagem_Estimator_Model_Addon $model */
                 $model = Mage::getModel('stagem_estimator/addon');

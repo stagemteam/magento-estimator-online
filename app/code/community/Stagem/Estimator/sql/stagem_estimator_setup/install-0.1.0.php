@@ -51,7 +51,8 @@ $addonTable = $installer->getConnection()
         'default' => 0,
     ], 'Is addon active?')
     ->addColumn('placeholder', Varien_Db_Ddl_Table::TYPE_VARCHAR, 255, [
-        'nullable' => true,
+        'nullable' => false,
+        'default' => '',
     ], 'Placeholder for form element')
     ->addColumn('info_message', Varien_Db_Ddl_Table::TYPE_TEXT, null, [
         'nullable' => true,

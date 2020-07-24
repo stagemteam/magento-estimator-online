@@ -83,33 +83,35 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
     {
         foreach ($this->getCategories() as $category) {
             $this->data['categories'][] = [
-                'id' => $category->getId(),
-                'value' => $category->getId(),
+                'id' => (int) $category->getId(),
+                'value' => (int) $category->getId(),
                 'label' => $category->getName(),
                 'image' => $this->getCategoryThumbnailImageUrl($category),
             ];
 
-            $brands = [];
             foreach ($this->getConfigurables($category) as $configurable) {
                 $this->data['configurables'][] = [
-                    'id' => $configurable->getId(),
-                    'value' => $configurable->getId(),
-                    'brandId' => $configurable->getManufacturer(),
+                    'id' => (int) $configurable->getId(),
+                    'value' => (int) $configurable->getId(),
                     'label' => $configurable->getName(),
+                    'categoryId' => (int) $category->getId(),
+                    'brandId' => (int) $configurable->getManufacturer(),
                 ];
 
-                $this->data['manufacturers'][$configurable->getManufacturer()] = [
-                    'id' => $configurable->getManufacturer(),
-                    'categoryId' => $category->getId(),
-                    'value' => $configurable->getManufacturer(),
-                    'label' => $configurable->getAttributeText('manufacturer'),
-                ];
+                $manufacturer = $this->data['manufacturers'][$configurable->getManufacturer()] ?? [];
+                $manufacturer['id'] = (int) $configurable->getManufacturer();
+                isset($manufacturer['categoryIds'])
+                    ? array_push($manufacturer['categoryIds'], (int) $category->getId())
+                    : $manufacturer['categoryIds'] = [(int) $category->getId()];
+                $manufacturer['value'] = (int) $configurable->getManufacturer();
+                $manufacturer['label'] = $configurable->getAttributeText('manufacturer');
+                $this->data['manufacturers'][$configurable->getManufacturer()] = $manufacturer ;
 
                 foreach ($this->getProducts($configurable) as $simple) {
                     $this->data['products'][] = [
-                        'id' => $simple->getId(),
-                        'modelId' => $configurable->getId(),
-                        'value' => $simple->getId(),
+                        'id' => (int) $simple->getId(),
+                        'modelId' => (int) $configurable->getId(),
+                        'value' => (int) $simple->getId(),
                         'label' => $simple->getAttributeText('cooling_capacity'), // @TODO Generate label based on the pattern from System config
                     ];
                 }
@@ -157,7 +159,11 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
             ->addFinalPrice()
             ->addTaxPercents()
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
+            //->addAttributeToFilter('is_in_stock', 1)
+            //->addAttributeToFilter('qty', ["gt" => 0])
             ->addUrlRewrite();
+
+        Mage::getSingleton('cataloginventory/stock')->addInStockFilterToCollection($productCollection);
 
         return $productCollection;
     }
@@ -192,10 +198,12 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
         $manufacturers = $this->getManufacturers();
         /** @var Bc_Manufacturer_Model_Manufacturer $manufacturer */
         foreach ($manufacturers as $id => $manufacturer) {
-            $option = & $this->data['manufacturers'][$manufacturer->getOptionId()];
-
-            $option['logo'] = $this->getMediaUrl($manufacturer->getLogoWebPath());
-            $option['generalImage'] = $this->getMediaUrl($manufacturer->getGeneralImage());
+            if (isset($this->data['manufacturers'][$manufacturer->getOptionId()])) {
+                $option = &$this->data['manufacturers'][$manufacturer->getOptionId()];
+                $option['logo'] = $this->getMediaUrl($manufacturer->getLogoWebPath());
+                $option['generalImage'] = $this->getMediaUrl($manufacturer->getGeneralImage());
+                $option['categoryIds'] = array_values(array_unique($option['categoryIds']));
+            }
         }
 
         return Mage::helper('core')->jsonEncode(array_values($this->data['manufacturers']));
@@ -224,17 +232,17 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
         /** @var Stagem_Estimator_Model_Addon $addon */
         foreach ($addons as $addon) {
             $element = [
-                'id' => $addon->getId(),
+                'id' => (int) $addon->getId(),
                 'type' => $addon->getType(),
                 'value' => $addon->getValue(),
-                'label' => $addon->getName(),
-                'title' => $addon->getName(),
+                'label' => $this->__($addon->getName()),
+                'title' => $this->__($addon->getName()),
                 'order' => $addon->getPriority(),
                 'name' => 'addons[' . $addon->getId() . ']',
                 'isSeparate' => $addon->isSeparate(),
                 'isMultiple' => $addon->isMultiple(),
-                'infoMessage' => $addon->getInfoMessage(),
-                'placeholder' => $addon->getPlaceholder(),
+                'infoMessage' => $this->__($addon->getInfoMessage()),
+                'placeholder' => $this->__($addon->getPlaceholder()),
             ];
 
             $addon->isSeparate()
