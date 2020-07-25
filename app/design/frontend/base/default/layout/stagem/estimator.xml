@@ -5,14 +5,14 @@
             <action method="addItem" ifconfig="stagem_estimator/general/enabled"><type>skin_js</type><name>stagem/estimator/js/plugin/jquery.datetimepicker.full.js</name><params/></action>
             <action method="addItem" ifconfig="stagem_estimator/general/enabled"><type>skin_css</type><name>stagem/estimator/js/plugin/jquery.datetimepicker.min.css</name><params/></action>
         </reference>
-        <reference name="content">
-            <block type="stagem_estimator/estimator" name="content.estimator.ready" template="stagem/estimator/form.phtml" />
-        </reference>
     </stagem_estimator_online_handle>
 
     <stagem_estimator_online_index>
         <reference name="head">
             <action method="setTitle" translate="label title"><title>Online HVAC Estimate</title></action>
+        </reference>
+        <reference name="content">
+            <block type="stagem_estimator/estimator" name="content.estimator.ready" template="stagem/estimator/form.phtml" />
         </reference>
         <update handle="stagem_estimator_online_handle" />
     </stagem_estimator_online_index>
@@ -21,12 +21,18 @@
         <reference name="head">
             <action method="setTitle" translate="label title"><title>Online HVAC Estimate</title></action>
         </reference>
+        <reference name="content">
+            <block type="stagem_estimator/estimator" name="content.estimator.ready" template="stagem/estimator/form.phtml" />
+        </reference>
         <update handle="stagem_estimator_online_handle" />
     </stagem_estimator_online_modify>
 
     <stagem_estimator_online_ready>
         <reference name="head">
             <action method="setTitle" translate="label title"><title>Ready to Install</title></action>
+        </reference>
+        <reference name="content">
+            <block type="core/template" name="content.estimator.ready" template="stagem/estimator/ready.phtml" />
         </reference>
         <update handle="stagem_estimator_online_handle" />
     </stagem_estimator_online_ready>

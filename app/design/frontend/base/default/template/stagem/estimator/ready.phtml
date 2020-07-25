@@ -1,0 +1,21 @@
+<?php
+/**
+ * The MIT License (MIT)
+ * Copyright (c) 2020 Stagem Team
+ * This source file is subject to The MIT License (OSL 3.0)
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * https://opensource.org/licenses/MIT
+ *
+ * @category Stagem
+ * @package Stagem_Estimator
+ * @author Serhii Popov <popow.serhii@gmail.com>
+ * @license https://opensource.org/licenses/MIT The MIT License (MIT)
+ */
+?>
+<?= $this->getLayout()->createBlock('core/template')
+	->setTemplate('stagem/page/banner.phtml')
+    ->setData('image', 'wysiwyg/airgreen/page/banner/ready-to-install.jpg')
+    ->setData('header', 'We\'ve got your confirmation!')
+    ->setData('content', 'Please wait for a call from our manager')
+	->toHtml() ?>

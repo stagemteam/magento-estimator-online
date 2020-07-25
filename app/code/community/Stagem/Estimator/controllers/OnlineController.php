@@ -22,25 +22,25 @@ class Stagem_Estimator_OnlineController extends Mage_Core_Controller_Front_Actio
     
     public function readyAction()
     {
-        $hash = Mage::app()->getRequest()->getParam('hash');
+        if ($hash = Mage::app()->getRequest()->getParam('hash')) {
+            /** @var Stagem_Estimator_Model_Estimation $estimation */
+            $estimation = Mage::getModel('stagem_estimator/estimation')->load($hash, 'hash');
+            $estimation->setData('is_ready_to_install', 1)->save();
+            /** @var Stagem_Estimator_Helper_Data $helperJob */
+            $helperJob = Mage::helper('stagem_estimator');
 
-        $estimation = Mage::getModel('stagem_estimator/estimation')->load($hash, 'hash');
-        $estimation->setData('is_ready_to_install', 1)->save();
+            if ($helperJob->sendMail($estimation)) {
+                //Mage::getSingleton('core/session')->addSuccess(
+                //    $this->__('We\'ve got your confirmation for HVAC installation!')
+                //);
+                //Mage::getSingleton('core/session')->unsPostDataCall();
+            }
 
-        /** @var Stagem_Estimator_Helper_Data $helperJob */
-        $helperJob = Mage::helper('stagem_estimator');
-
-        if ($helperJob->sendMail($estimation)) {
-            Mage::getSingleton('core/session')->addSuccess(
-                $this->__('We\'ve got your confirmation for HVAC installation! Please wait for a call from our manager.')
-            );
-            //Mage::getSingleton('core/session')->unsPostDataCall();
+            $this->loadLayout();
+            $this->renderLayout();
         }
 
         $this->_redirect('*/online/');
-        
-        //$this->loadLayout();
-        //$this->renderLayout();
     }
 
     public function createAction()
