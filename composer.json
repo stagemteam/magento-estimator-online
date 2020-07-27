@@ -18,8 +18,5 @@
       ["skin/frontend/base/default/stagem/estimator/", "skin/frontend/base/default/stagem/estimator/"],
       ["app/locale/en_US/template/email/stagem/estimator/", "app/locale/en_US/template/email/stagem/estimator/"]
     ]
-  },
-  "require": {
-    "dweeves/magmi": "^0.7.22"
   }
 }
