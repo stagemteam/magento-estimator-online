@@ -9,6 +9,25 @@ class Stagem_Estimator_Helper_Data extends Mage_Core_Helper_Abstract
 {
     const SYSTEM_SECTION_NAME = 'stagem_estimator';
 
+    public function __()
+    {
+        $translator = Mage::app()->getTranslator();
+        $default = $translator->getTranslateInline();
+        $translator->setTranslateInline(false);
+
+        $translated = $translator->translate(func_get_args());
+
+        $translator->setTranslateInline($default);
+
+        return $translated;
+    }
+
+    public function getTranslateInline()
+    {
+        // Disable Translate Inline though helper to avoid broken frontend
+        return false;
+    }
+
     public function handleForm($data)
     {
         /** @var Agere_Form_Helper_Data $dataHelper */

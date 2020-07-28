@@ -37,7 +37,6 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
             return null;
         }
             
-        //$this->setTemplate('followupemail/related.phtml');
         return $this->renderView();
     }
   
@@ -159,8 +158,10 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
             ->addFinalPrice()
             ->addTaxPercents()
             ->addAttributeToSelect(Mage::getSingleton('catalog/config')->getProductAttributes())
-            //->addAttributeToFilter('is_in_stock', 1)
-            //->addAttributeToFilter('qty', ["gt" => 0])
+            ->addAttributeToFilter('manufacturer', ['nin' =>
+                explode(',', Mage::getStoreConfig('stagem_estimator/general/ignored_brands'))
+            ])
+            //->addAttributeToFilter('qty', ['gt' => 0])
             ->addUrlRewrite();
 
         Mage::getSingleton('cataloginventory/stock')->addInStockFilterToCollection($productCollection);
@@ -234,15 +235,16 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
             $element = [
                 'id' => (int) $addon->getId(),
                 'type' => $addon->getType(),
-                'value' => $addon->getValue(),
+                'value' => $this->getAddonValue($addon),
                 'label' => $this->__($addon->getName()),
-                'title' => $this->__($addon->getName()),
+                // We use helper for translate placeholder to avoid broken frontend when Translate Inline is enabled
+                'title' => Mage::helper('stagem_estimator')->__($addon->getName()),
                 'order' => $addon->getPriority(),
                 'name' => 'addons[' . $addon->getId() . ']',
                 'isSeparate' => $addon->isSeparate(),
                 'isMultiple' => $addon->isMultiple(),
                 'infoMessage' => $this->__($addon->getInfoMessage()),
-                'placeholder' => $this->__($addon->getPlaceholder()),
+                'placeholder' => Mage::helper('stagem_estimator')->__($addon->getPlaceholder()),
             ];
 
             $addon->isSeparate()
@@ -270,5 +272,33 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
         $json = Mage::helper('core')->jsonEncode($data);
 
         return $json;
+    }
+
+    /**
+     * Prepare value for form element.
+     *
+     * It returns addon ID if there is no variations, otherwise array return.
+     *
+     * @param Stagem_Estimator_Model_Addon $addon
+     * @return int|array
+     */
+    public function getAddonValue($addon)
+    {
+        $value = $addon->getId();
+
+        if ($addon->isMultiple()) {
+            $value = [];
+            $conditions = $addon->parsePriceConditions();
+            foreach ($conditions as $index => $condition) {
+                $value[] = [
+                    'value' => $index,
+                    'label' => isset($condition['to_unit'])
+                        ? $this->__($condition['from_unit']) . ' - ' . $this->__($condition['to_unit'])
+                        : $this->__($condition['from_unit']),
+                ];
+            }
+        }
+
+        return $value;
     }
 }

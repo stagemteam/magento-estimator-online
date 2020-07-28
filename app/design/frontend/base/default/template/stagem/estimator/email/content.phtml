@@ -75,7 +75,7 @@
 							<tr>
 								<td class="inner contents" style="padding: 10px; text-align: center; width: 100%;">
 									<a href="<?= $productUrl ?>" cellpadding="0" cellspacing="0" border="0" target="_blank">
-										<img src="<?= Mage::helper('catalog/image')->init($estimation->getConfigurable(), 'image')->resize(220, 230) ?>" width="220" height="230" alt="<?= $productFullName ?>" cellpadding="0" cellspacing="0" border="0"  style="display: block; margin: 0; Margin: 0 auto; text-aligh: center; padding: 0; border: 0 none;"/>
+										<img src="<?= Mage::helper('catalog/image')->init($estimation->getConfigurable(), 'image')->resize(420, 430) ?>" width="420" height="430" alt="<?= $productFullName ?>" cellpadding="0" cellspacing="0" border="0"  style="display: block; margin: 0; Margin: 0 auto; text-aligh: center; padding: 0; border: 0 none;"/>
 									</a>
 								</td>
 							</tr>
@@ -151,7 +151,7 @@
                     <tr>
                         <td class="inner" style="padding: 20px 30px;">
                             <p style="font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 24px; line-height: 1.42; font-weight: normal; border: 0 none; color: #3d3d3d;text-align: right; vertical-align: top; margin: 0; padding: 0;">
-	                            <?= $this->__('Total') ?>: <?= Mage::helper('core')->currency($estimation->getTotalPrice(), true, false) ?> + <?= $this->__('Tax') ?>
+	                            <?= $this->__('Total') ?>: <?= Mage::helper('core')->currency($estimation->getTotalPrice(), true, false) ?> +<?= Mage::helper('stagem_estimator')->__('Tax') ?>
                             </p>
                         </td>
                     </tr>
@@ -170,6 +170,50 @@
 </tr>
 </table>
 <![endif]-->
+
+
+
+<!--[if (gte mso 9)|(IE)]>
+<table width="600" align="center">
+	<tr>
+		<td>
+<![endif]-->
+<table class="outer" align="center" style="Margin: 0 auto; border-spacing: 0; color: #3d3d3d; font-family: sans-serif; max-width: 600px; width: 100%; background: #ffffff;">
+
+	<tr>
+		<td class="one-column" style="padding: 0;">
+			<table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
+				<tr>
+					<td class="inner contents" style="padding: 0; text-align: center; width: 100%;">
+						<table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
+							<tr>
+								<td class="inner contents" style="padding: 10px; text-align: center; width: 100%;">
+									<a href="<?= Mage::getUrl('estimator/online/ready', ['hash' => $estimation->getHash ()]) ?>" target="_blank" style="text-decoration:none !important;-ms-text-size-adjust:none;font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif;font-size:18px;color:#FFFFFF;border-style:solid;border-color:#20B5BD;border-width:20px 100px;display:inline-block;background:#20B5BD;border-radius:6px;font-weight:normal;font-style:normal;line-height:22px;width:auto;text-align:center;" rel="noreferrer noopener">
+                                        <?= $this->__('Ready to Install') ?>
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td align="center" class="inner contents" style="text-align: center; width: 100%;">
+									<a align="center" href="<?= Mage::getUrl('estimator/online/modify', ['hash' => $estimation->getHash()]) ?>" cellpadding="0" cellspacing="0" border="0" target="_blank" style="font-family:  Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 14px; line-height: 30px; color: #3d3d3d; font-weight: normal; text-align: center; -webkit-text-size: none; margin: 0; padding: 0; border: 0 none;">
+                                        <?= $this->__('Modify Estimation') ?>
+									</a>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+
+</table>
+<!--[if (gte mso 9)|(IE)]>
+</td>
+</tr>
+</table>
+<![endif]-->
+
 
 
 <!--[if (gte mso 9)|(IE)]>
@@ -202,7 +246,6 @@
 <![endif]-->
 
 
-
 <?php if (count($addons = $this->getEstimation()->getAddons())) : ?>
 	<!--[if (gte mso 9)|(IE)]>
 	<table width="600" align="center">
@@ -217,7 +260,7 @@
 						<td class="inner contents" style="padding: 20px 30px 0; text-align: center; width: 100%;">
 							<table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
 								<?php /*<tr>
-									<td width="" height="20" cellpadding="0" cellspacing="0" border="0" style="height: 20px; vertical-align: middle; font-size: 20px; line-height: 20px; margin: 0px; padding: 0px; border-collapse: collapse; border-spacing: 0; border: 0 none;">&nbsp;</td>
+									<td width="" height="20" cellpadding="0" cellspacing="0" border="0" style="height: 20px; vertical-align: middle; font-size: 20px; line-height: 20px; margin: 0px; padding: 0px; border-collapse: collapse; border-spacing: 0; border: 0 none;">C</td>
 								</tr>*/ ?>
 								<tr>
 									<td class="inner contents" style="text-align: left; width: 100%;">
@@ -256,7 +299,7 @@
 								<tr>
 									<td class="inner contents" style="text-align: right; width: 100%;">
 										<p class="h1" style="Margin: 0; color: #3d3d3d; font-size: 16px; font-weight: noremal; line-height: 140%; text-align: right; letter-spacing: 0.05em;">
-                                            <?= $this->__('Base installation') ?>: <?= Mage::helper('core')->currency($estimation->getProduct()->getFinalPrice(), true, false) ?> + <?= $this->__('Tax') ?>
+                                            <?= Mage::helper('stagem_estimator')->__('Base installation') ?>: <?= Mage::helper('core')->currency($estimation->getProduct()->getFinalPrice(), true, false) ?> +<?= Mage::helper('stagem_estimator')->__('Tax') ?>
 										</p>
 									</td>
 								</tr>
@@ -285,6 +328,7 @@
 	?>
 <?php endif; ?>
 
+
 <!--[if (gte mso 9)|(IE)]>
 <table width="600" align="center">
 	<tr>
@@ -296,27 +340,7 @@
 		<td class="one-column" style="padding: 0;">
 			<table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
 				<tr>
-					<td class="inner contents" style="padding: 0; text-align: center; width: 100%;">
-						<table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
-							<tr>
-								<td class="inner contents" style="padding: 10px; text-align: center; width: 100%;">
-									<a href="<?= Mage::getUrl('estimator/online/ready', ['hash' => $estimation->getHash ()]) ?>" target="_blank" style="text-decoration:none !important;-ms-text-size-adjust:none;font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif;font-size:18px;color:#FFFFFF;border-style:solid;border-color:#20B5BD;border-width:20px 100px;display:inline-block;background:#20B5BD;border-radius:6px;font-weight:normal;font-style:normal;line-height:22px;width:auto;text-align:center;" rel="noreferrer noopener">
-                                        <?= $this->__('Ready to Install') ?>
-									</a>
-								</td>
-							</tr>
-							<tr>
-								<td align="center" class="inner contents" style="text-align: center; width: 100%;">
-									<a align="center" href="<?= Mage::getUrl('estimator/online/modify', ['hash' => $estimation->getHash()]) ?>" cellpadding="0" cellspacing="0" border="0" target="_blank" style="font-family:  Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 14px; line-height: 30px; color: #3d3d3d; font-weight: normal; text-align: center; -webkit-text-size: none; margin: 0; padding: 0; border: 0 none;">
-                                        <?= $this->__('Modify Estimation') ?>
-									</a>
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td width="" height="20" cellpadding="0" cellspacing="0" border="0" style="height: 20px; vertical-align: middle; font-size: 20px; line-height: 20px; margin: 0px; padding: 0px; border-collapse: collapse; border-spacing: 0; border: 0 none;">&nbsp;</td>
+					<td width="" height="20" cellpadding="0" cellspacing="0" border="0" style="width: px; height: 20px; vertical-align: middle; font-size: 20px; line-height: 20px; margin: 0px; padding: 0px; border-collapse: collapse; border-spacing: 0; border: 0 none;">&nbsp;</td>
 				</tr>
 				<tr>
 					<td class="full-width-image" style="padding: 0; background: #ffffff;">

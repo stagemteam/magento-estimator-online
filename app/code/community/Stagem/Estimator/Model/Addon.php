@@ -61,33 +61,6 @@ class Stagem_Estimator_Model_Addon extends Mage_CatalogRule_Model_Rule
     }
 
     /**
-     * Prepare value for form element.
-     *
-     * It returns addon ID if there is no variations, otherwise array return.
-     *
-     * @return int|array
-     */
-    public function getValue()
-    {
-        $value = $this->getId();
-
-        if ($this->isMultiple()) {
-            $value = [];
-            $conditions = $this->parsePriceConditions();
-            foreach ($conditions as $index => $condition) {
-                $value[] = [
-                    'value' => $index,
-                    'label' => isset($condition['to_unit'])
-                        ? Mage::helper('stagem_estimator')->__($condition['from_unit']) . ' - ' . Mage::helper('stagem_estimator')->__($condition['to_unit'])
-                        : Mage::helper('stagem_estimator')->__($condition['from_unit']),
-                ];
-            }
-        }
-
-        return $value;
-    }
-
-    /**
      * @todo Implement Select and Input Select
      */
     public function calculate($input = null)
