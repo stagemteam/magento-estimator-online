@@ -151,7 +151,7 @@
                     <tr>
                         <td class="inner" style="padding: 20px 30px;">
                             <p style="font-family: Arial, 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif; font-size: 24px; line-height: 1.42; font-weight: normal; border: 0 none; color: #3d3d3d;text-align: right; vertical-align: top; margin: 0; padding: 0;">
-	                            <?= $this->__('Total') ?>: <?= Mage::helper('core')->currency($estimation->getTotalPrice(), true, false) ?> +<?= Mage::helper('stagem_estimator')->__('Tax') ?>
+	                            <?= $this->__('Total') ?>: <?= Mage::helper('core')->currency($estimation->getTotalPrice(), true, false) ?> +<?= Mage::helper('stagem_estimator')->__('tx') ?>
                             </p>
                         </td>
                     </tr>
@@ -299,7 +299,7 @@
 								<tr>
 									<td class="inner contents" style="text-align: right; width: 100%;">
 										<p class="h1" style="Margin: 0; color: #3d3d3d; font-size: 16px; font-weight: noremal; line-height: 140%; text-align: right; letter-spacing: 0.05em;">
-                                            <?= Mage::helper('stagem_estimator')->__('Base installation') ?>: <?= Mage::helper('core')->currency($estimation->getProduct()->getFinalPrice(), true, false) ?> +<?= Mage::helper('stagem_estimator')->__('Tax') ?>
+                                            <?= Mage::helper('stagem_estimator')->__('Base installation') ?>: <?= Mage::helper('core')->currency($estimation->getProduct()->getFinalPrice(), true, false) ?> +<?= Mage::helper('stagem_estimator')->__('tx') ?>
 										</p>
 									</td>
 								</tr>
