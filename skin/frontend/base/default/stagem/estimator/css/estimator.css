@@ -1,0 +1,272 @@
+#online-estimator #estimator-form li {
+	list-style: none;
+}
+#online-estimator .card {
+	box-sizing: border-box;
+	text-align: left;
+	z-index: 1;
+}
+#online-estimator .card-header {
+	background-color: #20b5bd;
+	font-weight: bold;
+	color: white;
+	font-size: 14px;
+	padding: 15px;
+}
+#online-estimator .card-body {
+	border: 1px solid #DFDFDF;
+	border-top: none;
+	background: linear-gradient(to bottom,white 1%,#f9f9f9 98%) repeat scroll 0 0 transparent;
+	padding: 15px;
+	position: relative;
+}
+#online-estimator #contact-block .input-box {
+	display: flex;
+	align-items: center;
+}
+#online-estimator #contact-block .input-box label {
+	margin: 0;
+	font-weight: normal;
+	cursor: pointer;
+}
+#online-estimator #contact-block .input-box input[type="radio"],
+#online-estimator #contact-block .input-box input[type="checkbox"] {
+	margin: 0 5px 0 0;
+	cursor: pointer;
+}
+#online-estimator #estimator-block .card-body input[type="file"] {
+	margin-top: 15px;
+}
+#online-estimator .step-title {
+	margin: 30px 0;
+	line-height: 1.2;
+	font-size: 16px;
+	font-weight: bold;
+	color: #313131;
+}
+#online-estimator .step-title p {
+	font-size: 14px;
+	font-weight: normal;
+}
+#online-estimator .g-recaptcha {
+	margin-top: 10px;
+}
+#online-estimator .input-box.requirements {
+	display: flex;
+
+}
+#online-estimator #estimator-block {
+	line-height: 1.3;
+}
+#online-estimator #estimator-block label {
+	white-space: normal;
+}
+#online-estimator #step4 label {
+	min-width: 60%;
+}
+#online-estimator #estimator-block .input-box {
+	display: flex;
+	align-items: center;
+}
+#online-estimator #estimator-block hr {
+	margin-top: 25px;
+	margin-bottom: 25px;
+	border: 0;
+	border-top: 1px solid #DFDFDF;
+}
+#online-estimator #estimator-block .input-box input[type="radio"], #estimator-block .input-box input[type="checkbox"] {
+	margin: 0 5px 0 0;
+	cursor: pointer;
+}
+#online-estimator #estimator-block .form-list li {
+	margin-bottom: 0;
+}
+#online-estimator #estimator-block a.quickview-icon {
+	visibility: visible;
+	opacity: initial;
+	position: relative;
+	margin-left: auto;
+}
+#online-estimator #estimator-block .input-box label {
+	width: auto;
+	margin: 0;
+	font-weight: normal;
+	cursor: pointer;
+}
+#online-estimator #estimator-block label {
+	font-weight: normal;
+}
+#online-estimator .estimator-banner_addon {
+	width: 100%;
+	background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(113,113,113,1) 90%);
+	align-items: center;
+	margin: 0;
+	margin-bottom: -40px;
+	padding: 10px 10px 10px 20px;
+	line-height: 1.3;
+}
+#online-estimator .estimator-banner__image {
+	background-repeat: no-repeat;
+	background-size: contain;
+	height: 400px;
+	width: 100%;
+	background-position: bottom;
+	margin-bottom: -40px;
+	margin-top: 25px;
+}
+#online-estimator .estimator-banner__text {
+	color: #20b5bd;
+	font-size: 16px;
+	margin-top: 100px;
+}
+#online-estimator .estimator-banner__title {
+	color: white;
+	font-size: 21px;
+	margin: 30px 0;
+}
+#online-estimator .estimator-banner__info {
+	color: #b3b3b3;
+	font-size: 16px;
+}
+#online-estimator #generalStep {
+	margin-top: -34px;
+}
+#online-estimator .power {
+	position: relative;
+}
+#online-estimator .powerInfo table tr:nth-child(2n) {
+	background: none repeat scroll 0 0 #f1f1f1;
+}
+#online-estimator .powerInfo table td {
+	border: 1px solid #c0c0c0;
+	border-collapse: collapse;
+	font-size: 14px;
+	margin: 0;
+	padding: 2px;
+}
+#online-estimator .powerInfo table th {
+	background: none repeat scroll 0 0 #20b5bd;
+	color: #fff;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 5px;
+	text-align: left;
+	border: 1px solid #fff;
+}
+#online-estimator .powerInfo table {
+	border: 1px solid #c0c0c0;
+	color: #3d3d3d;
+	border-collapse: collapse;
+}
+#online-estimator .powerInfo {
+	position: absolute;
+	background: white;
+	padding: 10px;
+	border-radius: 5px;
+	top: 40px;
+	left: 130px;
+	margin-right: 10px;
+	z-index: 2;
+	box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+#online-estimator .powerInfo::before {
+	content: ' ';
+	width: 10px;
+	height: 10px;
+	background-color: white;
+	display: block;
+	position: absolute;
+	top: -5px;
+	left: 23px;
+	transform: rotate(45deg);
+}
+#online-estimator .info-icon {
+	margin-left: 2px;
+	cursor: pointer;
+	width: 16px;
+	height: 16px;
+	vertical-align: middle;
+}
+#online-estimator .small {
+	margin-bottom: 10px;
+	display: block;
+}
+#online-estimator #step4 .card, #step5 .card, #step5.card {
+	margin-bottom: 10px !important;
+}
+#online-estimator #submit-form-button {
+	margin-top: 10px;
+}
+#online-estimator .estimator-category-image {
+	height: 500px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+#online-estimator .estimator-brand-logo {
+	width: 100%;
+	height: 200px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: contain;
+}
+#online-estimator .estimator-right-container {
+	margin-top: 55px;
+}
+#online-estimator .mt20 {
+	padding-top: 20px;
+}
+
+#online-estimator #additionalRequirements-container .addon {
+	margin: 0;
+	padding-top: 20px;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #DFDFDF;
+}
+#online-estimator #additionalRequirements-container .addon:first-child {
+	padding-top: 0;
+}
+#online-estimator #additionalRequirements-container .addon:last-child {
+	padding-bottom: 0;
+	border-bottom: 0;
+}
+#online-estimator .fw-normal {
+	font-weight: normal !important;
+}
+@media (max-width: 991px) {
+	#online-estimator .estimator-category-image {
+		height: 300px;
+	}
+	#online-estimator .estimator-banner__image {
+		margin-bottom: 100px;
+		height: 300px;
+		margin-top: 15px;
+	}
+}
+@media (max-width: 768px) {
+	#online-estimator #generalStep {
+		margin-top: -10px;
+	}
+}
+@media (max-width: 530px) {
+	#online-estimator .powerInfo::before {
+		left: 142px;
+	}
+	#online-estimator .powerInfo {
+		left: 10px;
+	}
+}
+@media (max-width: 500px) {
+	#online-estimator #estimator-block .input-box.input {
+		flex-direction: column;
+		align-items: flex-start;
+	}
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+	#online-estimator .powerInfo::before {
+		left: 142px;
+	}
+	#online-estimator .powerInfo {
+		left: 10px;
+	}
+}

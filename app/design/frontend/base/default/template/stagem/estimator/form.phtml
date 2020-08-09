@@ -1,45 +1,203 @@
-<?php
-/**
- * The MIT License (MIT)
- * Copyright (c) 2020 Serhii Popov
- * This source file is subject to The MIT License (OSL 3.0)
- * that is bundled with this package in the file LICENSE.txt.
- * It is also available through the world-wide-web at this URL:
- * https://opensource.org/licenses/MIT
- *
- * @category Stagem
- * @package Stagem_Estimator
- * @author Serhii Popov <popow.serhii@gmail.com>
- * @license https://opensource.org/licenses/MIT The MIT License (MIT)
- */
-?>
-<?php
-/**
- * @var $this Stagem_Estimator_Block_Estimator
- */
-?>
-<div>
-	<ul>
-		<?php foreach ($this->getCategories() as $category) : ?>
-		<li data-id="<?= $category->getId() ?>"><?= $category->getName() ?></li>
-		<?php endforeach; ?>
-	</ul>
-</div>
+<div id="online-estimator">
+    <div class="estimator-banner_addon row">
+        <div class="col-md-7 col-sm-12">
+            <div class="estimator-banner__text">
+                <?= $this->__('Online HVAC Estimate') ?>
+            </div>
+            <div class="estimator-banner__title">
+                <?= $this->__('GET AN ONLINE, FAST AND ACCURATE AC/HEATING ESTIMATE NOW!') ?>
+            </div>
+            <div class="estimator-banner__info">
+                <?= $this->__('Answer a few quick questions below and you will get a fast, accurate Central Air Conditioning & Heating Estimate immediately sent to your email!') ?>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-5 estimator-banner__image-box">
+            <div class="estimator-banner__image" style="background-image: url(https://secureservercdn.net/198.71.233.138/035.041.myftpupload.com/wp-content/uploads/2020/03/safasf.png)"></div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-7">
+        <div id="estimator-block" class="widget-litebox">
+            <div class="container-litebox">
+                <div class="main-litebox">
+                    <form id="estimator-form" action="<?= $this->getFormUrl() ?>" name="estimator-form" method="post" enctype="multipart/form-data" accept-charset="utf-8">
+                        <fieldset class="">
+                            <ul class="form-list">
+                                <li class="card" id="generalStep" style="display: none">
+                                    <div class="card-header">
+                                        <span><?= $this->__('I would like a quote for') ?>:</span>
+                                    </div>
+                                    <div class="card-body" id="categories-container"></div>
+                                </li>
+                                <li id="step0_img" class="hidden-md hidden-lg hidden-xl mt20">
+                                    <div class="row" id="estimator-category-image-box2"></div>
+                                </li>
+                                <li class="card" id="step1" style="display: none">
+                                    <div class="step-title">
+                                        <strong>
+                                            <span><?= $this->__('STEP') ?> 1/5</span>
+                                        </strong>
+                                    </div>
+                                    <div class="card-header">
+                                        <span><?= $this->__('Select the brand A/C you would like a price quote on') ?>:</span>
+                                    </div>
+                                    <div class="card-body" id="brands-container"></div>
+                                </li>
+                                <li id="step1_img" class="hidden-md hidden-lg hidden-xl mt20">
+                                    <div class="row" id="estimator-brand-image-box2"></div>
+                                </li>
+                                <li class="card" id="step2" style="display: none">
+                                    <div class="step-title">
+                                        <strong>
+                                            <span><?= $this->__('STEP') ?> 2/5</span>
+                                        </strong>
+                                    </div>
+                                    <div class="card-header">
+                                        <span><?= $this->__('Select the model A/C you would like a price quote on') ?>:</span>
+                                    </div>
+                                    <div class="card-body" id="models-container"></div>
+                                </li>
+                                <li class="card" id="step3" style="display: none">
+                                    <div class="step-title">
+                                        <strong>
+                                            <span><?= $this->__('STEP') ?> 3/5</span>
+                                        </strong>
+                                    </div>
+                                    <div class="card-header power">
+                                        <span><?= $this->__('Select power (BTU)') ?> <img src="<?php echo $this->getSkinUrl('images/info.png'); ?>" class="info-icon" onclick="powerInfoToggle()" /></span>
+                                        <?= $this->getLayout()->createBlock('cms/block')->setBlockId('btu_capacity_comparison_table')->toHtml() ?>
+                                    </div>
+                                    <div class="card-body" id="powers-container"></div>
+                                </li>
+                                <li id="step4" style="display: none">
+                                    <div class="step-title">
+                                        <strong>
+                                            <span><?= $this->__('STEP') ?> 4/5</span>
+                                        </strong>
+                                        <p><?= $this->__('Please, provide any additional information that can help us make a more accurate estimate') ?>.</p>
+                                    </div>
+                                    <div id="separated-addons-container"></div>
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <span><?= $this->__('Additional requirements') ?></span>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="additionalRequirements-container"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li id="step5" class="card" style="display: none">
+                                    <div class="step-title">
+                                        <strong>
+                                            <span><?= $this->__('STEP') ?> 5/5</span>
+                                        </strong>
+                                    </div>
+                                    <div class="card-header">
+                                        <span><?= $this->__('Send us a photo') ?></span>
+                                    </div>
+                                    <div class="card-body upload-document-block clearfix">
+                                        <ul>
+                                            <li>
+                                                <?php $email = Mage::getStoreConfig('trans_email/ident_sales/email'); ?>
+                                                <?php $phones = array_filter(explode(',', Mage::getStoreConfig('general/store_information/phone'))); ?>
+                                                <?= sprintf(
+                                                    $this->__("Send us a pic of your equipment and its surrounding area. <br>Stand far away from the equipment so we can see the area around the unit. <br>You can do it now and send here or at any possible time at phone number <a href='tel:%s'>%s</a>, or email <a href='mailto:%s'>%s</a>.<br><br>This is not required, but it is very helpful during the estimate."),
+                                                    $phones[0],
+                                                    $phones[0],
+                                                    $email,
+                                                    $email
+                                                ) ?>
+                                            </li>
+                                            <li>
+                                                <input type="file" name="files[]" id="file" value="" multiple="multiple" />
+                                                <span class="small"><?= $this->__('File extensions') ?>: <?= Mage::getStoreConfig('stagem_estimator/general/file_extensions') ?></span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li id="step6" class="card" style="display: none">
+                                    <div class="card-header">
+                                        <span><?= $this->__('YOUR CONTACT INFORMATION') ?></span>
+                                    </div>
+                                    <div class="card-body">
+                                        <div>
+                                            <label class="required" for="first-name"><?= $this->__('Full name') ?><em class="star">*</em></label>
+                                            <div class="input-box">
+                                                <input type="text" value="" class="input-text required-entry" id="full-name" name="customer[full_name]" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="required" for="phone"><?= $this->__('Phone') ?><em class="star">*</em></label>
+                                            <div class="input-box">
+                                                <input type="text" value="" class="input-text required-entry" id="phone" name="customer[phone]" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="required" for="email"><?= $this->__('Email') ?><em class="star">*</em></label>
+                                            <div class="input-box">
+                                                <input type="text" value="" class="input-text required-entry" id="email" name="customer[email]" />
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div>
+                                            <label class="required" for="address"><?= $this->__('Address') ?><em class="star">*</em></label>
+                                            <div class="input-box">
+                                                <input type="text" value="" class="input-text required-entry" id="address" name="customer[address]" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="required" for="city"><?= $this->__('City') ?><em class="star">*</em></label>
+                                            <div class="input-box">
+                                                <input type="text" value="" class="input-text required-entry" id="city" name="customer[city]" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="required" for="zip"><?= $this->__('ZIP') ?><em class="star">*</em></label>
+                                            <div class="input-box">
+                                                <input type="text" value="" class="input-text required-entry" id="zip" name="customer[zip]" />
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div>
+                                            <label for="description"><?= $this->__('Additional Notes') ?></label>
+                                            <div class="input-box">
+                                            <textarea class="input-text textarea" id="description" name="customer[description]" rows="2">
+                                            </textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="g-recaptcha" data-sitekey="<?= Agere_Form_Helper_Data::GOOGLE_CAPTCHA_SITEKEY ?>"></div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </fieldset>
 
-<div>
-	<ul>
-	<?php foreach ($this->getCategories() as $category) : ?>
-		<?php // @TODO Try this one for performance https://stackoverflow.com/a/20898132/1335142 ?>
-		<?php foreach ($this->getConfigurables($category) as $configurable) : ?>
-			<li data-id="<?= $configurable->getId() ?>">
-				<?= $configurable->getName() ?>
-				<ul>
-					<?php foreach ($this->getProducts($configurable) as $simple) : ?>
-						<li data-id="<?= $simple->getId() ?>"><?= $simple->getName() ?></li>
-                    <?php endforeach; ?>
-				</ul>
-			</li>
-        <?php endforeach; ?>
-	<?php endforeach; ?>
-	</ul>
+                        <div class="form-button" id="submit-form-button" style="display: none">
+                            <button type="submit" class="button button-blue left" title="<?= $this->__('Evaluate') ?>">
+                                <span><?= $this->__('Evaluate') ?></span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hidden-xs hidden-sm col-md-5 estimator-right-container">
+        <div class="row" id="estimator-category-image-box"></div>
+        <div class="row" id="estimator-brand-general-image-box"></div>
+        <div class="row" id="estimator-brand-image-box"></div>
+    </div>
 </div>
+<?php
+/** @var $this Stagem_Estimator_Block_Estimator */
+?>
+<script type="text/javascript">
+    let BASE_URL = '<?= Mage::getBaseUrl() ?>';
+    let STORE_LANG = '<?= $this->getStoreLang() ?>';
+    let categories = <?= $this->categoriesToJson() ?>;
+    let brands = <?= $this->manufacturersToJson() ?>;
+    let models = <?= $this->configurablesToJson() ?>;
+    let powers = <?= $this->productsToJson() ?>;
+    let addons = <?= $this->addonsToJson() ?>;
+    let selected = <?= $this->estimationToJson() ?>;
+</script>

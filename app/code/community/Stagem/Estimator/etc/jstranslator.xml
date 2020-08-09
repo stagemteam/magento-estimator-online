@@ -1,0 +1,6 @@
+<jstranslator>
+    <!-- validation.js -->
+    <quick-view-label translate="message" module="stagem_estimator">
+        <message>Quick View</message>
+    </quick-view-label>
+</jstranslator>
