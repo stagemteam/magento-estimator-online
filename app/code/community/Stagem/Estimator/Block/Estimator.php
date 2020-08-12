@@ -201,7 +201,7 @@ class Stagem_Estimator_Block_Estimator extends Mage_Core_Block_Template
         foreach ($manufacturers as $id => $manufacturer) {
             if (isset($this->data['manufacturers'][$manufacturer->getOptionId()])) {
                 $option = &$this->data['manufacturers'][$manufacturer->getOptionId()];
-                $option['logo'] = $this->getMediaUrl($manufacturer->getLogoWebPath());
+                $option['logo'] = $this->getMediaUrl($manufacturer->getLogo());
                 $option['generalImage'] = $this->getMediaUrl($manufacturer->getGeneralImage());
                 $option['categoryIds'] = array_values(array_unique($option['categoryIds']));
             }

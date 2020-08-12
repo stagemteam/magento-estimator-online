@@ -1,5 +1,5 @@
 {
-  "name": "stagem/magento-online-estimator",
+  "name": "stagem/magento-estimator-online",
   "type": "magento-module",
   "license":"MIT Licence",
   "description":"Online Estimation for conditioner installation",
