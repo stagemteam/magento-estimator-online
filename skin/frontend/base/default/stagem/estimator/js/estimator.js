@@ -75,7 +75,7 @@ function initCategories() {
         categoryElement.find('input').change(function () {
             hiddenElement('#submit-form-button');
             initImages('#estimator-category-image-box', category.image, index, indexImg);
-            //initImages('#estimator-category-image-box2', category.image, index, indexImg);
+            initImages('#estimator-category-image-box2', category.image, index, indexImg);
             indexImg = index;
             jQuery('#estimator-brand-image-box').empty();
             jQuery('#estimator-brand-image-box2').empty();
