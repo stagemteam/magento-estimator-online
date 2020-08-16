@@ -101,8 +101,8 @@
                                                 <?php $phones = array_filter(explode(',', Mage::getStoreConfig('general/store_information/phone'))); ?>
                                                 <?= sprintf(
                                                     $this->__("Send us a pic of your equipment and its surrounding area. <br>Stand far away from the equipment so we can see the area around the unit. <br>You can do it now and send here or at any possible time at phone number <a href='tel:%s'>%s</a>, or email <a href='mailto:%s'>%s</a>.<br><br>This is not required, but it is very helpful during the estimate."),
-                                                    $phones[0],
-                                                    $phones[0],
+                                                    $phones[1],
+                                                    $phones[1],
                                                     $email,
                                                     $email
                                                 ) ?>
