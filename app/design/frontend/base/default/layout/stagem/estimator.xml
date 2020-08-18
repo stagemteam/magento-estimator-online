@@ -6,6 +6,9 @@
             <action method="addItem" ifconfig="stagem_estimator/general/enabled"><type>skin_css</type><name>stagem/estimator/js/plugin/jquery.datetimepicker.min.css</name><params/></action>
             <action method="addItem" ifconfig="stagem_estimator/general/enabled"><type>skin_css</type><name>stagem/estimator/css/estimator.css</name><params/></action>
             <action method="addItem" ifconfig="stagem_estimator/general/enabled"><type>skin_js</type><name>stagem/estimator/js/estimator.js</name><params/></action>
+            <block type="core/text" name="head.estimator.recaptcha.api">
+                <action ifconfig="agere_form/general/recaptcha_enabled" method="setText"><text><![CDATA[<script src="https://www.google.com/recaptcha/api.js"></script>]]></text></action>
+            </block>
         </reference>
     </stagem_estimator_online_handle>
 
