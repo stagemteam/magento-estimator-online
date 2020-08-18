@@ -49,7 +49,7 @@ class Stagem_Estimator_OnlineController extends Mage_Core_Controller_Front_Actio
 
             /** @var Agere_Form_Helper_Data $helperData */
             $helperData = Mage::helper('agere_form');
-            if (true || $helperData->checkCaptcha($post)) {
+            if ($helperData->checkCaptcha($post)) {
                 try {
                     $extension = array_map(
                         'trim', explode(',', Mage::getStoreConfig('stagem_estimator/general/file_extensions'))
