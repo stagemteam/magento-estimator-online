@@ -127,6 +127,8 @@
                 <recipient_email><![CDATA[hello@localhost.com]]></recipient_email>
                 <sender_email_identity>general</sender_email_identity>
                 <email_template>stagem_estimator_general_email_template</email_template>
+                <email_subject_default>Online HVAC Estimate</email_subject_default>
+                <email_subject_ready>Ready to Install</email_subject_ready>
             </general>
         </stagem_estimator>
     </default>

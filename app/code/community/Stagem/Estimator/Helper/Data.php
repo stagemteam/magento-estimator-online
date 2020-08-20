@@ -49,10 +49,15 @@ class Stagem_Estimator_Helper_Data extends Mage_Core_Helper_Abstract
     {
         $action = Mage::app()->getRequest()->getActionName();
         $subjects = [
-            'default' => 'Online HVAC Estimate',
-            'ready' => 'Ready to Install'
+            'default' => Mage::getStoreConfig('stagem_estimator/general/email_subject_default'),
+            'ready' => Mage::getStoreConfig('stagem_estimator/general/email_subject_ready')
         ];
+
+        $useStoreName = Mage::getStoreConfig('stagem_estimator/general/use_store_in_subject');
         $subject = $subjects[$action] ?? $subjects['default'];
+        $subject = $useStoreName
+            ? $subject . ' | ' . Mage::getStoreConfig('general/store_information/name')
+            : $subject;
 
         /** @var Agere_Form_Helper_Data $dataHelper */
         $dataHelper = Mage::helper('agere_form');
@@ -60,7 +65,7 @@ class Stagem_Estimator_Helper_Data extends Mage_Core_Helper_Abstract
         $vars = [];
         $vars['estimation'] = $estimation;
         $vars['files'] = $estimation->getFiles();
-        $vars['subject'] = $this->__($subject) . ' | ' . Mage::getStoreConfig('general/store_information/name');
+        $vars['subject'] = $subject;
         $vars['phones'] = array_filter(explode(',', Mage::getStoreConfig('general/store_information/phone')));
         $vars['logo_src'] = Mage::getDesign()->getSkinUrl(Mage::getStoreConfig('design/header/logo_src'));
 

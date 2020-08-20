@@ -35,7 +35,7 @@ class Stagem_Estimator_Block_Email_Addons extends Mage_Core_Block_Template
         $addon = $this->getItems()->getItemById($index);
         $measureValue = $this->getMeasureValue($addon);
 
-        $value = $this->__($addon->getName()) . sprintf('<i>%s</i>', $this->getMeasureValue($addon));
+        $value = $this->__($addon->getName()) . sprintf('<i>%s</i>', $measureValue);
         
         return $value;
     }
@@ -86,7 +86,7 @@ class Stagem_Estimator_Block_Email_Addons extends Mage_Core_Block_Template
 
         $parsedCondition = $addon->parsePriceCondition($condition);
 
-        $unit = $parsedCondition['from_unit'] ?? $selectedValue;
+        $unit = $parsedCondition['from_unit'] ? $this->__($parsedCondition['from_unit']) : $this->__($selectedValue);
         if (isset($parsedCondition['to_unit'])) {
             $unit = $selectedValue . ' ' . $this->__($parsedCondition['to_unit']);
         } elseif ($addon->isInput() && isset($parsedCondition['from_unit'])) {
