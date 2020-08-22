@@ -70,7 +70,7 @@
                                         <?php $email = Mage::getStoreConfig('trans_email/ident_sales/email'); ?>
                                         <?= sprintf($this->__("Have an issue that we can help with? Email us at <a style='%s' href='mailto:%s'>%s</a>, or write to us at %s."), $linkStyle, $email, $email, Mage::getStoreConfig('general/store_information/address'))?>
                                         <br/>
-                                        <?= sprintf($this->__("Learn about our <a href='%s' style='%s'>Privacy Policy</a>"), '#', $linkStyle) ?>
+                                        <?= sprintf($this->__("Learn about our <a href='%s' style='%s' target='_blank'>Privacy Policy</a>"), $this->getUrl('privacy-policy'), $linkStyle) ?>
                                     </p>
                                 </td>
                             </tr>
