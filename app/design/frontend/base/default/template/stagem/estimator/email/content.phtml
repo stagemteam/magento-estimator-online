@@ -36,7 +36,7 @@
                             <tr>
                                 <td class="inner contents" style="padding: 10px 30px; text-align: center; width: 100%;">
                                     <p class="h1" style="Margin: 0; color: #8D8D8D; font-size: 14px; font-weight: noremal; line-height: 140%; text-align: center; letter-spacing: 0.05em;">
-                                        <i><?= $this->getEstimation()->getCustomerValue('full_name') ?></i>, <?= $this->__('here are you price and offer') ?>
+                                        <?= $this->getEstimation()->getCustomerValue('full_name') ?>, <?= $this->__('here are you price and offer') ?>
                                     </p>
                                 </td>
                             </tr>
@@ -69,6 +69,7 @@
 					<td class="inner contents" style="padding: 0; text-align: center; width: 100%;">
                         <?php /** @var Stagem_Estimator_Model_Estimation $estimation  */ ?>
                         <?php $estimation = $this->getEstimation() ?>
+                        <?php $configurable = $estimation->getConfigurable() ?>
                         <?php $productUrl = $estimation->getConfigurable()->getProductUrl() ?>
                         <?php $productFullName = $estimation->getConfigurable()->getName() . ' ' . $estimation->getProduct()->getAttributeText('cooling_capacity') ?>
 						<table width="100%" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif;">
@@ -85,6 +86,14 @@
                                         <?= $estimation->getConfigurable()->getName() ?>
 										<br>
 										<b><?= $estimation->getProduct()->getAttributeText('cooling_capacity') ?></b>
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td class="inner contents" style="padding: 10px; text-align: center; width: 100%;">
+									<?php $productHelper = $this->helper('catalog/output'); ?>
+									<a href="<?= $productUrl ?>" cellpadding="0" cellspacing="0" border="0" target="_blank">
+                                        <?= $productHelper->productAttribute($configurable, nl2br($configurable->getShortDescription()), 'short_description') ?>
 									</a>
 								</td>
 							</tr>
