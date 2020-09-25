@@ -50,10 +50,18 @@
 									<table class="contents" style="border-spacing: 0; color: #3d3d3d; font-family: sans-serif; font-size: 14px; text-align: left; width: 100%;">
 										<tr>
 											<td class="text text__head center" style="font-size: 11px; font-weight: bold; line-height: 16px; padding: 0; text-align: left !important;">
-												<a href="{{store url=''}}" cellpadding="0" cellspacing="0" border="0" target="_blank">
-													<img src="{{var logo_src}}" width="130" height="80" alt="{{config path='design/header/logo_alt'}}" cellpadding="0" cellspacing="0" border="0"  style="display: block; margin: 0; Margin: 0; text-aligh: center; padding: 0; border: 0 none;"/>
-												</a>
-												{{block type='core/template' area='frontend' template='stagem/estimator/email/phones.phtml' phones=$phones}}
+												<!-- line- -->
+												<table width="130" cellpadding="0" cellspacing="0" border="0" style="width: 130px; background: #ffffff; padding: 0; border-collapse: collapse; border-spacing: 0; border: 0 none;">
+													<tr>
+														<td width="130" height="25" cellpadding="0" cellspacing="0" border="0" style="width: 130px; height: 25px; vertical-align: top; border-collapse: collapse; border-spacing: 0; border: 0 none;">
+															<a href="{{store url=''}}" cellpadding="0" cellspacing="0" border="0" target="_blank">
+																<img src="{{var logo_src}}" width="130" height="80" alt="{{config path='design/header/logo_alt'}}" cellpadding="0" cellspacing="0" border="0"  style="display: block; margin: 0; Margin: 0; text-aligh: center; padding: 0; border: 0 none;"/>
+															</a>
+															{{block type='core/template' area='frontend' template='stagem/estimator/email/phones.phtml' phones=$phones}}
+														</td>
+													</tr>
+												</table>
+												<!-- end line- -->
 											</td>
 										</tr>
 									</table>
